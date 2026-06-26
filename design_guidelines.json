@@ -1,0 +1,127 @@
+{
+  "theme_archetype": "Archetype 5: Luxury. A premium, moody, cinematic dark theme inspired by Apple, Linear, and Rockstar Games. It prioritizes mystery, anticipation, and quality over loud neon or standard esports aesthetics.",
+  "typography": {
+    "heading_font": "Outfit",
+    "body_font": "Manrope",
+    "rules": {
+      "h1": "text-5xl md:text-6xl lg:text-7xl font-medium tracking-tighter leading-tight",
+      "h2": "text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight",
+      "h3": "text-xl md:text-2xl font-medium tracking-tight",
+      "body": "text-base md:text-lg text-[#C8CCD1] leading-relaxed",
+      "overline": "text-xs md:text-sm uppercase tracking-[0.2em] font-semibold text-sunset-orange",
+      "notes": "Never use Inter for headings. Use Outfit for a sleek, modern premium feel. Headings must be tightly tracked."
+    }
+  },
+  "color_palette": {
+    "background": {
+      "primary": "#0A0A0A",
+      "secondary": "#16181D",
+      "card": "#1E2228"
+    },
+    "text": {
+      "primary": "#F5F5F2",
+      "secondary": "#C8CCD1"
+    },
+    "accents": {
+      "sunset_orange": "#FF7B54",
+      "soft_coral": "#FF9F89",
+      "muted_pink": "#E08E9B",
+      "ocean_blue": "#2B7A9A"
+    },
+    "rules": "Avoid RGB effects and glowing rainbow gradients. Use accents very sparingly to draw attention to interactive elements (like the waitlist CTA). Everything should feel grounded and high-end."
+  },
+  "spacing_and_layout": {
+    "philosophy": "Generous spacing. Elements should have room to breathe.",
+    "section_padding": "py-24 md:py-32 lg:py-40",
+    "grid_system": "Bento 'Tetris' grid for feature sections (grid-cols-1 md:grid-cols-3 lg:grid-cols-4 with gap-6 or gap-8).",
+    "container": "max-w-7xl mx-auto px-6 lg:px-8"
+  },
+  "surface_strategies": {
+    "navigation": "Crystal Glassmorphism. bg-[#0A0A0A]/60 backdrop-blur-xl border-b border-white/5.",
+    "cards": "Solid bg-[#1E2228] with incredibly subtle 1px border-white/5. Hover state: slight lift (-translate-y-1) and glow via box-shadow or border-white/15.",
+    "modals": "Dark overlays (bg-black/80 backdrop-blur-sm) with cards matching the main UI."
+  },
+  "motion_and_interaction": {
+    "library": "framer-motion and lenis for smooth scrolling.",
+    "style": "Extremely subtle. Fade in, slight slide up (y: 20 -> 0), scale (0.98 -> 1), soft hover states. No bouncy or playful animations.",
+    "hero_parallax": "Subtle mouse parallax on the hero mockup."
+  },
+  "icons": {
+    "library": "lucide-react",
+    "style": "Thin, minimalist strokes. Stroke width 1.5."
+  },
+  "component_instructions": {
+    "buttons": "Primary: Solid sunset_orange background or subtle metallic gradient, text-[#0A0A0A] or white depending on contrast. Secondary: Transparent with border-white/10 and text-white. All buttons must have rounded-full or slightly rounded corners based on layout.",
+    "inputs": "Shadcn UI Input, customized to dark theme: bg-[#16181D] border-white/10 text-[#F5F5F2] focus:ring-1 focus:ring-sunset_orange.",
+    "accordion": "Shadcn UI Accordion for FAQ, extremely clean, minimal borders."
+  },
+  "media_urls": {
+    "hero_background_texture": {
+      "url": "https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNTl8MHwxfHNlYXJjaHwzfHxkYXJrJTIwY2luZW1hdGljJTIwbHV4dXJ5JTIwdGV4dHVyZXxlbnwwfHx8fDE3ODI0NzIwOTB8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Dark cinematic luxury texture, use at very low opacity (10-20%) as a base background layer to kill digital flatness."
+    },
+    "hero_mockup_placeholder": {
+      "url": "https://images.pexels.com/photos/19705160/pexels-photo-19705160.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Miami night city skyline. Use inside the UI mockup/dashboard concept art."
+    },
+    "map_preview": {
+      "url": "https://images.unsplash.com/photo-1648310464832-bf480442a568?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODh8MHwxfHNlYXJjaHwxfHxkYXJrJTIwY2l0eSUyMG1hcCUyMG5hdmlnYXRpb258ZW58MHx8fHwxNzgyNDcyMTA1fDA&ixlib=rb-4.1.0&q=85",
+      "description": "Dark city map navigation. Apply heavy blur and overlay 'Interactive Map / Coming Soon'."
+    },
+    "ai_avatar_abstract": {
+      "url": "https://images.pexels.com/photos/9888046/pexels-photo-9888046.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Abstract metallic silver spheres. Use as the avatar or background visual for the AI Companion Preview section."
+    },
+    "palm_silhouette": {
+      "url": "https://images.unsplash.com/photo-1670811456186-e73d0ace9454?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MDV8MHwxfHNlYXJjaHwyfHxwYWxtJTIwdHJlZSUyMHNpbGhvdWV0dGUlMjBzdW5zZXR8ZW58MHx8fHwxNzgyNDcyMDkwfDA&ixlib=rb-4.1.0&q=85",
+      "description": "Palm tree silhouette. Use sparingly as an ambient background in the footer or waitlist section."
+    }
+  },
+  "pages_structure": [
+    {
+      "section": "Navigation",
+      "features": "Floating glass sticky nav, metallic silver 'VH' logo, Links: Features, Roadmap, FAQ. CTA: 'Join Waitlist'. Mobile hamburger."
+    },
+    {
+      "section": "Hero",
+      "features": "Headline: 'The Ultimate GTA 6 Companion Is Almost Here.', curiosity copy, launch countdown, 'Launching alongside GTA 6' disclaimer. Buttons: Primary 'Join Waitlist', Secondary 'See What's Coming'. Visual: Large cinematic premium UI product mockup with subtle mouse parallax and soft lighting."
+    },
+    {
+      "section": "Product Preview (Cards)",
+      "features": "Premium clickable cards for AI Companion, Interactive Map, Mission Guide, etc. All say 'Coming Soon'. Clicking opens a polished concept preview modal."
+    },
+    {
+      "section": "AI Companion Preview",
+      "features": "Mockup of a premium chat interface. Clickable suggested questions, beautifully designed placeholder answers. Abstract metallic sphere as AI visual identity."
+    },
+    {
+      "section": "Interactive Map Preview",
+      "features": "Large blurred map concept, overlay 'Interactive Map / Coming Soon'. Beautiful markers, search/filter UI shell partially hidden to build curiosity."
+    },
+    {
+      "section": "Why People Will Love It",
+      "features": "Bento grid of elegant cards (Explore Faster, Track Progress, etc.), minimal copy."
+    },
+    {
+      "section": "Coming Soon Grid",
+      "features": "Premium dense grid. Icon + Title + Small Subtitle. Topics: Mission Database, Vehicles, Achievements, etc. All labeled 'Coming Soon'."
+    },
+    {
+      "section": "Timeline / Roadmap",
+      "features": "Animated roadmap (Today -> Join Waitlist -> GTA 6 Launch -> ViceHub Launch). Linear style, subtle active glowing node."
+    },
+    {
+      "section": "Waitlist Section (Final CTA)",
+      "features": "Headline: 'Be Ready Before Everyone Else.', Email input + Large CTA. Privacy note, instant confirmation UI state."
+    },
+    {
+      "section": "FAQ",
+      "features": "Shadcn accordion. Premium, minimal borders. Short answers."
+    },
+    {
+      "section": "Footer",
+      "features": "Minimal premium footer. Logo, social placeholders, legal links."
+    }
+  ],
+  "testing": "All interactive elements (buttons, inputs, accordions, modals) MUST include data-testid attributes (e.g., data-testid='hero-join-waitlist-btn')."
+}
