@@ -14,7 +14,7 @@ from typing import Optional, List
 from pydantic import BaseModel, EmailStr
 import asyncpg
 import resend
-from emergentintegrations.llm.chat import LlmChat, UserMessage, TextDelta, StreamDone
+
 
 import auth as auth_lib
 import storage as storage_lib
@@ -299,25 +299,12 @@ SYSTEM_PROMPT = (
 
 
 @api_router.post("/companion/chat")
+@api_router.post("/companion/chat")
 async def companion_chat(body: ChatRequest):
-    if not EMERGENT_LLM_KEY:
-        raise HTTPException(status_code=500, detail="LLM key not configured")
-    session_id = body.session_id or str(uuid.uuid4())
-
-    async def event_generator():
-        try:
-            chat = LlmChat(api_key=EMERGENT_LLM_KEY, session_id=session_id, system_message=SYSTEM_PROMPT).with_model("openai", "gpt-5.4-mini")
-            async for ev in chat.stream_message(UserMessage(text=body.message)):
-                if isinstance(ev, TextDelta):
-                    yield f"data: {json.dumps({'delta': ev.content})}\n\n"
-                elif isinstance(ev, StreamDone):
-                    yield f"data: {json.dumps({'done': True})}\n\n"
-        except Exception as e:
-            logger.error(f"Companion chat error: {e}")
-            yield f"data: {json.dumps({'error': 'The companion is resting. Please try again.'})}\n\n"
-
-    return StreamingResponse(event_generator(), media_type="text/event-stream",
-                             headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
+    raise HTTPException(
+        status_code=503,
+        detail="AI Companion is temporarily unavailable."
+    )
 
 
 # ---------- Routes: auth ----------
