@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+
 Disallow: /admin
 
-Sitemap: https://gta6-companion-3.preview.emergentagent.com/api/sitemap.xml
+Sitemap: https://www.vicehub.live/sitemap.xml
