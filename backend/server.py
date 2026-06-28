@@ -25,6 +25,8 @@ load_dotenv(ROOT_DIR / '.env')
 DATABASE_URL = os.environ['DATABASE_URL']
 EMERGENT_LLM_KEY = os.environ.get('EMERGENT_LLM_KEY')
 RESEND_API_KEY = os.environ.get('RESEND_API_KEY')
+print("RESEND_API_KEY exists:", bool(RESEND_API_KEY))
+print("RESEND_API_KEY length:", len(RESEND_API_KEY) if RESEND_API_KEY else 0)
 SENDER_EMAIL = os.environ.get('SENDER_EMAIL', 'onboarding@resend.dev')
 ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', 'admin@vicehub.gg')
 ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'ViceHub@2026')
