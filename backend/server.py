@@ -228,23 +228,93 @@ async def get_current_admin(authorization: Optional[str] = Header(None)):
 # ---------- Email ----------
 def confirmation_html(email: str) -> str:
     return f"""
-    <table width="100%" cellpadding="0" cellspacing="0" style="background:#0A0A0A;padding:40px 0;font-family:Arial,Helvetica,sans-serif;">
-      <tr><td align="center">
-        <table width="520" cellpadding="0" cellspacing="0" style="background:#16181D;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);">
-          <tr><td style="padding:40px 40px 8px 40px;">
-            <p style="margin:0;font-size:13px;letter-spacing:3px;color:#FF7B54;text-transform:uppercase;">ViceHub</p>
-            <h1 style="margin:14px 0 0 0;color:#F5F5F2;font-size:26px;font-weight:600;">You're on the list.</h1>
-          </td></tr>
-          <tr><td style="padding:16px 40px 8px 40px;">
-            <p style="margin:0;color:#C8CCD1;font-size:15px;line-height:1.7;">
-              Thanks for joining the ViceHub waitlist. You'll be among the first players to experience your AI-powered GTA&nbsp;6 companion when it launches on <b style="color:#F5F5F2;">November 19, 2026</b>.
-            </p>
-          </td></tr>
-          <tr><td style="padding:28px 40px 40px 40px;">
-            <p style="margin:0;color:#6b7280;font-size:12px;">Concept previews shown on our site. Features become available after launch.</p>
-          </td></tr>
-        </table>
-      </td></tr>
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#0b0b0d;padding:40px 0;font-family:Arial,Helvetica,sans-serif;">
+      <tr>
+        <td align="center">
+
+          <table width="600" cellpadding="0" cellspacing="0"
+                 style="background:#17181d;border:1px solid #2a2d35;border-radius:20px;overflow:hidden;">
+
+            <tr>
+              <td style="padding:40px;text-align:center;">
+
+                <div style="font-size:13px;letter-spacing:5px;color:#ff6b3d;font-weight:bold;">
+                  VICEHUB
+                </div>
+
+                <h1 style="margin:18px 0 12px;color:#ffffff;font-size:36px;">
+                  You're Officially In.
+                </h1>
+
+                <p style="color:#c8ccd4;font-size:17px;line-height:1.8;">
+                  Thanks for joining the exclusive ViceHub waitlist.
+                  You're among the first players who will experience our
+                  AI-powered GTA 6 companion before launch.
+                </p>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:0 40px;">
+
+                <table width="100%" cellpadding="16"
+                       style="background:#20232b;border-radius:14px;">
+
+                  <tr>
+                    <td style="color:white;font-size:16px;">
+                      ✓ AI Companion<br><br>
+                      ✓ Interactive Map<br><br>
+                      ✓ Wallpapers<br><br>
+                      ✓ Community Discussions<br><br>
+                      ✓ Launch Guides
+                    </td>
+                  </tr>
+
+                </table>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td align="center" style="padding:40px;">
+
+                <a href="https://www.vicehub.live"
+                   style="background:#ff6b3d;
+                          color:white;
+                          text-decoration:none;
+                          padding:16px 34px;
+                          border-radius:10px;
+                          font-size:17px;
+                          font-weight:bold;
+                          display:inline-block;">
+                  Visit ViceHub
+                </a>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td align="center"
+                  style="padding:0 40px 40px;
+                         color:#8b9099;
+                         font-size:13px;
+                         line-height:1.8;">
+
+                Launching alongside GTA 6 on
+                <strong style="color:#ffffff;">November 19, 2026</strong>.
+
+                <br><br>
+
+                © 2026 ViceHub • https://www.vicehub.live
+
+              </td>
+            </tr>
+
+          </table>
+
+        </td>
+      </tr>
     </table>
     """
 
