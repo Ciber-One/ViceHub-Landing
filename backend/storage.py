@@ -1,6 +1,7 @@
 import os
 import requests
 
+APP_NAME = "vicehub"
 
 MIME_TYPES = {
     "jpg": "image/jpeg",
