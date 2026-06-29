@@ -7,11 +7,14 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import Landing from "@/pages/Landing";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
+import Media from "@/pages/Media";
 import AdminLogin from "@/pages/admin/AdminLogin";
 import AdminDashboard from "@/pages/admin/AdminDashboard";
 import PostEditor from "@/pages/admin/PostEditor";
 
 function App() {
+
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -20,6 +23,7 @@ function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/media" element={<Media />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
             <Route path="/admin/new" element={<ProtectedRoute><PostEditor /></ProtectedRoute>} />
