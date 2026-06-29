@@ -517,13 +517,32 @@ async def delete_post(post_id: str, admin=Depends(get_current_admin)):
 
 
 @api_router.post("/blog/upload-image")
-async def upload_image(file: UploadFile = File(...), admin=Depends(get_current_admin)):
-    ext = (file.filename.rsplit(".", 1)[-1].lower() if "." in (file.filename or "") else "png")
-    content_type = storage_lib.MIME_TYPES.get(ext, file.content_type or "application/octet-stream")
+async def upload_image(
+    file: UploadFile = File(...),
+    admin=Depends(get_current_admin)
+):
+    ext = file.filename.rsplit(".", 1)[-1].lower() if "." in file.filename else "png"
+
+    content_type = (
+        storage_lib.MIME_TYPES.get(ext)
+        or file.content_type
+        or "application/octet-stream"
+    )
+
     path = f"{storage_lib.APP_NAME}/blog/{uuid.uuid4()}.{ext}"
+
     data = await file.read()
-    result = await asyncio.to_thread(storage_lib.put_object, path, data, content_type)
-    return {"path": result.get("path", path)}
+
+    result = await asyncio.to_thread(
+        storage_lib.put_object,
+        path,
+        data,
+        content_type,
+    )
+
+    return {
+        "path": result["url"]
+    }
 
 
 # ---------- Sitemap ----------
