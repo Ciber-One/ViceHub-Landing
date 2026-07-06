@@ -4,10 +4,10 @@ import { Toaster } from "@/components/ui/sonner";
 import { Analytics } from "@vercel/analytics/react";
 import { AuthProvider } from "@/context/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import Landing from "@/pages/Landing";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
-import Media from "@/pages/Media";
 import Contact from "@/pages/Contact";
 import Legal from "@/pages/Legal";
 import AdminLogin from "@/pages/admin/AdminLogin";
@@ -20,12 +20,12 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <ScrollToTop />
         <AuthProvider>
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/media" element={<Media />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy" element={<Legal type="privacy" />} />
             <Route path="/terms" element={<Legal type="terms" />} />

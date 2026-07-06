@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { Footer } from "@/components/Footer";
 import { useSeo } from "@/hooks/useSeo";
 
-const CONTACT_EMAIL = "hello@vicehub.live";
+const CONTACT_EMAIL = "getportale@gmail.com";
 
 export default function Contact() {
   useSeo({

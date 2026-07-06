@@ -17,7 +17,6 @@ const FOOTER_SECTIONS = [
     links: [
       { label: "Home", to: "/" },
       { label: "Journal", to: "/blog" },
-      { label: "Media", to: "/media" },
       { label: "RSS Feed", href: `${API}/rss.xml`, external: true, icon: Rss },
     ],
   },
