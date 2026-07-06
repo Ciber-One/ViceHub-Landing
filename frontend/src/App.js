@@ -8,6 +8,8 @@ import Landing from "@/pages/Landing";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import Media from "@/pages/Media";
+import Contact from "@/pages/Contact";
+import Legal from "@/pages/Legal";
 import AdminLogin from "@/pages/admin/AdminLogin";
 import AdminDashboard from "@/pages/admin/AdminDashboard";
 import PostEditor from "@/pages/admin/PostEditor";
@@ -24,6 +26,9 @@ function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/media" element={<Media />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy" element={<Legal type="privacy" />} />
+            <Route path="/terms" element={<Legal type="terms" />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
             <Route path="/admin/new" element={<ProtectedRoute><PostEditor /></ProtectedRoute>} />

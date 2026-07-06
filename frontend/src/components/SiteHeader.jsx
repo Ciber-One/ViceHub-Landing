@@ -9,17 +9,20 @@ export const SiteHeader = () => {
         <Link to="/" data-testid="header-logo-link">
           <Logo withText />
         </Link>
-        <nav className="flex items-center gap-6">
-          <Link to="/" data-testid="header-home-link" className="text-sm text-tsec hover:text-tprimary transition-colors">
+        <nav className="flex items-center gap-3 sm:gap-6">
+          <Link to="/" data-testid="header-home-link" className="hidden text-sm text-tsec transition-colors hover:text-tprimary sm:inline">
             Home
           </Link>
-          <Link to="/blog" data-testid="header-blog-link" className="text-sm text-tsec hover:text-tprimary transition-colors">
+          <Link to="/blog" data-testid="header-blog-link" className="text-sm text-tsec transition-colors hover:text-tprimary">
             Blog
+          </Link>
+          <Link to="/media" data-testid="header-media-link" className="hidden text-sm text-tsec transition-colors hover:text-tprimary sm:inline">
+            Media
           </Link>
           <button
             data-testid="header-waitlist-btn"
             onClick={() => navigate("/#waitlist")}
-            className="rounded-full bg-sunset px-5 py-2 text-sm font-semibold text-vice-bg hover:bg-coral transition-colors"
+            className="rounded-full bg-sunset px-4 py-2 text-xs font-semibold text-vice-bg transition-colors hover:bg-coral sm:px-5 sm:text-sm"
           >
             Join Waitlist
           </button>
