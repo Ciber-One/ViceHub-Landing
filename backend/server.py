@@ -14,6 +14,7 @@ from typing import Optional, List
 from pydantic import BaseModel, EmailStr
 import asyncpg
 import resend
+from openai import OpenAI
 
 
 import auth as auth_lib
@@ -24,6 +25,8 @@ load_dotenv(ROOT_DIR / '.env')
 
 DATABASE_URL = os.environ['DATABASE_URL']
 EMERGENT_LLM_KEY = os.environ.get('EMERGENT_LLM_KEY')
+GROQ_API_KEY = os.environ.get('GROQ_API_KEY')
+GROQ_MODEL = os.environ.get('GROQ_MODEL', 'llama-3.3-70b-versatile')
 RESEND_API_KEY = os.environ.get('RESEND_API_KEY')
 print("RESEND_API_KEY exists:", bool(RESEND_API_KEY))
 print("RESEND_API_KEY length:", len(RESEND_API_KEY) if RESEND_API_KEY else 0)
@@ -371,12 +374,40 @@ SYSTEM_PROMPT = (
 
 
 @api_router.post("/companion/chat")
-@api_router.post("/companion/chat")
 async def companion_chat(body: ChatRequest):
-    raise HTTPException(
-        status_code=503,
-        detail="AI Companion is temporarily unavailable."
-    )
+    message = body.message.strip()
+    if not message:
+        raise HTTPException(status_code=422, detail="Message is required")
+    if not GROQ_API_KEY:
+        raise HTTPException(status_code=503, detail="AI Companion is not configured")
+
+    def stream_groq():
+        try:
+            client = OpenAI(
+                base_url="https://api.groq.com/openai/v1",
+                api_key=GROQ_API_KEY,
+            )
+            stream = client.chat.completions.create(
+                model=GROQ_MODEL,
+                messages=[
+                    {"role": "system", "content": SYSTEM_PROMPT},
+                    {"role": "user", "content": message},
+                ],
+                temperature=0.7,
+                max_completion_tokens=220,
+                top_p=0.9,
+                stream=True,
+            )
+            for chunk in stream:
+                delta = chunk.choices[0].delta.content
+                if delta:
+                    yield f"data: {json.dumps({'delta': delta})}\n\n"
+            yield f"data: {json.dumps({'done': True})}\n\n"
+        except Exception as e:
+            logger.error(f"Groq companion failed: {e}")
+            yield f"data: {json.dumps({'error': 'AI Companion is temporarily unavailable.'})}\n\n"
+
+    return StreamingResponse(stream_groq(), media_type="text/event-stream")
 
 
 # ---------- Routes: auth ----------
