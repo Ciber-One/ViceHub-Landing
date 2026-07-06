@@ -6,6 +6,49 @@ import { streamCompanion } from "@/lib/api";
 
 const sessionId = `vh-${Math.random().toString(36).slice(2, 10)}`;
 
+const conceptReplies = [
+  {
+    match: ["where", "go", "next", "explore"],
+    text: "Once GTA 6 launches, I will help you choose your next move based on your current goals, nearby opportunities, and the kind of session you want to play. Think of it as a calm route planner for a very loud city.",
+  },
+  {
+    match: ["money", "earn", "cash", "faster"],
+    text: "ViceHub will turn money-making into a clear plan instead of guesswork. You will be able to compare routes, activities, and priorities so every session feels more intentional.",
+  },
+  {
+    match: ["vehicle", "car", "ride", "playstyle"],
+    text: "The Vehicle Explorer will help you find rides that match how you play, whether you care about speed, handling, style, or getting across the city cleanly. It is built to feel like a premium garage, not a spreadsheet.",
+  },
+  {
+    match: ["mission", "objective", "complete"],
+    text: "When missions are live, ViceHub will keep your objectives, context, and next steps organized without spoiling the fun. You get momentum, not noise.",
+  },
+];
+
+const fallbackReply = (question) => {
+  const q = question.toLowerCase();
+  return (
+    conceptReplies.find((reply) => reply.match.some((word) => q.includes(word)))?.text ||
+    "ViceHub will turn that kind of question into a clear, stylish game plan once GTA 6 is live. For now, this preview shows the tone: quick answers, less searching, and more time in the city."
+  );
+};
+
+const typeFallbackReply = (text, onDelta) =>
+  new Promise((resolve) => {
+    const words = text.split(" ");
+    let i = 0;
+    const tick = () => {
+      if (i >= words.length) {
+        resolve();
+        return;
+      }
+      onDelta(`${i === 0 ? "" : " "}${words[i]}`);
+      i += 1;
+      window.setTimeout(tick, 24);
+    };
+    tick();
+  });
+
 export const AICompanion = () => {
   const [messages, setMessages] = useState([
     {
@@ -36,13 +79,12 @@ export const AICompanion = () => {
         });
       });
     } catch {
-      setMessages((m) => {
-        const copy = [...m];
-        copy[copy.length - 1] = {
-          role: "ai",
-          text: "The companion is resting for a moment. Please try again shortly.",
-        };
-        return copy;
+      await typeFallbackReply(fallbackReply(q), (delta) => {
+        setMessages((m) => {
+          const copy = [...m];
+          copy[copy.length - 1] = { role: "ai", text: copy[copy.length - 1].text + delta };
+          return copy;
+        });
       });
     } finally {
       setBusy(false);
@@ -58,8 +100,8 @@ export const AICompanion = () => {
             A companion that actually gets your game.
           </h2>
           <p className="mt-4 max-w-md text-base md:text-lg text-tsec">
-            Ask a question and watch it respond. This is a live concept of the conversational
-            experience coming to ViceHub.
+            Ask a question and watch the experience respond. This interactive concept previews
+            the calm, useful guidance ViceHub is building for launch.
           </p>
           <div className="mt-8 flex flex-wrap gap-2.5">
             {SUGGESTED_QUESTIONS.map((q) => (
