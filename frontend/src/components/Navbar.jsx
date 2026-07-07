@@ -21,6 +21,17 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (!mobileOpen) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [mobileOpen]);
+
   const go = (href) => {
     setMobileOpen(false);
     document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
@@ -31,7 +42,7 @@ export const Navbar = () => {
       <nav
         data-testid="main-nav"
         className={`w-full max-w-6xl rounded-2xl border transition-all duration-500 ${
-          scrolled
+          scrolled || mobileOpen
             ? "glass border-white/10 shadow-[0_8px_40px_rgba(0,0,0,0.45)]"
             : "border-transparent bg-transparent"
         }`}
@@ -79,34 +90,44 @@ export const Navbar = () => {
         </div>
 
         {mobileOpen && (
-          <div className="md:hidden border-t border-white/5 px-4 py-4 flex flex-col gap-1" data-testid="mobile-menu">
-            {LINKS.map((l) => (
+          <div
+            className="fixed inset-x-4 top-[5.75rem] z-[60] max-h-[calc(100vh-7rem)] overflow-y-auto rounded-3xl border border-white/10 bg-[#080706]/95 p-4 shadow-[0_24px_80px_rgba(0,0,0,0.75)] backdrop-blur-2xl md:hidden"
+            data-testid="mobile-menu"
+          >
+            <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-sunset/60 to-transparent" />
+            <div className="mb-4 border-b border-white/10 pb-4">
+              <p className="text-xs uppercase tracking-[0.26em] text-tmuted">Navigate</p>
+              <p className="mt-2 text-sm text-tsec">Choose a section or join the waitlist.</p>
+            </div>
+            <div className="flex flex-col gap-2">
+              {LINKS.map((l) => (
+                <button
+                  key={l.href}
+                  data-testid={`mobile-nav-link-${l.label.toLowerCase()}`}
+                  onClick={() => go(l.href)}
+                  className="rounded-2xl border border-white/5 bg-white/[0.03] px-4 py-4 text-left text-base font-semibold text-tprimary transition-colors hover:border-white/10 hover:bg-white/[0.06]"
+                >
+                  {l.label}
+                </button>
+              ))}
               <button
-                key={l.href}
-                data-testid={`mobile-nav-link-${l.label.toLowerCase()}`}
-                onClick={() => go(l.href)}
-                className="text-left py-3 px-2 rounded-lg text-tsec hover:text-tprimary hover:bg-white/5 transition-colors"
+                data-testid="mobile-nav-link-blog"
+                onClick={() => { setMobileOpen(false); navigate("/blog"); }}
+                className="rounded-2xl border border-white/5 bg-white/[0.03] px-4 py-4 text-left text-base font-semibold text-tprimary transition-colors hover:border-white/10 hover:bg-white/[0.06]"
               >
-                {l.label}
+                Blog
               </button>
-            ))}
-            <button
-              data-testid="mobile-nav-link-blog"
-              onClick={() => { setMobileOpen(false); navigate("/blog"); }}
-              className="text-left py-3 px-2 rounded-lg text-tsec hover:text-tprimary hover:bg-white/5 transition-colors"
-            >
-              Blog
-            </button>
-            <button
-              data-testid="mobile-join-waitlist-btn"
-              onClick={() => {
-                setMobileOpen(false);
-                openWaitlist();
-              }}
-              className="mt-2 rounded-full bg-sunset px-5 py-3 text-sm font-semibold text-vice-bg"
-            >
-              Join Waitlist
-            </button>
+              <button
+                data-testid="mobile-join-waitlist-btn"
+                onClick={() => {
+                  setMobileOpen(false);
+                  openWaitlist();
+                }}
+                className="mt-3 rounded-full bg-sunset px-5 py-4 text-base font-semibold text-vice-bg transition-colors hover:bg-coral"
+              >
+                Join Waitlist
+              </button>
+            </div>
           </div>
         )}
       </nav>
