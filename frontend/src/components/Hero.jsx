@@ -4,18 +4,23 @@ import { Countdown } from "@/components/Countdown";
 import { HeroMockup } from "@/components/HeroMockup";
 import { useWaitlist } from "@/context/WaitlistContext";
 
+const PROMISE_POINTS = ["AI guidance", "Map-ready planning", "Progress memory"];
+
 export const Hero = () => {
   const { openWaitlist } = useWaitlist();
   const scrollTo = (id) => document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <section className="relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden">
-      {/* ambient backdrop */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 h-[600px] w-[900px] rounded-full opacity-40 blur-[120px]"
-          style={{ background: "radial-gradient(circle, rgba(255,123,84,0.18), transparent 60%)" }} />
-        <div className="absolute bottom-[-20%] right-[-10%] h-[500px] w-[600px] rounded-full opacity-30 blur-[120px]"
-          style={{ background: "radial-gradient(circle, rgba(43,122,154,0.22), transparent 60%)" }} />
+        <div
+          className="absolute top-[-10%] left-1/2 -translate-x-1/2 h-[600px] w-[900px] rounded-full opacity-40 blur-[120px]"
+          style={{ background: "radial-gradient(circle, rgba(255,123,84,0.18), transparent 60%)" }}
+        />
+        <div
+          className="absolute bottom-[-20%] right-[-10%] h-[500px] w-[600px] rounded-full opacity-30 blur-[120px]"
+          style={{ background: "radial-gradient(circle, rgba(43,122,154,0.22), transparent 60%)" }}
+        />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full grid lg:grid-cols-2 gap-12 lg:gap-10 items-center">
@@ -27,7 +32,7 @@ export const Hero = () => {
             className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs text-tsec"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-sunset animate-pulse" />
-            Launching alongside GTA 6 — Nov 19, 2026
+            Launching alongside GTA 6 - Nov 19, 2026
           </motion.span>
 
           <motion.h1
@@ -36,7 +41,7 @@ export const Hero = () => {
             transition={{ duration: 0.8, delay: 0.05 }}
             className="mt-6 font-heading text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tighter leading-[1.05] text-tprimary"
           >
-            The Ultimate <span className="text-sunset-grad">GTA 6 Companion</span> Is Almost Here.
+            Your GTA 6 <span className="text-sunset-grad">launch-day command center</span>.
           </motion.h1>
 
           <motion.p
@@ -45,8 +50,8 @@ export const Hero = () => {
             transition={{ duration: 0.8, delay: 0.15 }}
             className="mt-6 max-w-xl text-base md:text-lg text-tsec leading-relaxed"
           >
-            One intelligent platform built to help you explore, track, discover, and experience
-            GTA 6 in a whole new way.
+            ViceHub brings AI guidance, planning tools, and progress tracking into one calm, premium companion for
+            the first day in Vice City and every session after.
           </motion.p>
 
           <motion.div
@@ -73,9 +78,23 @@ export const Hero = () => {
           </motion.div>
 
           <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.32 }}
+            className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-xs text-tsec/60"
+          >
+            {PROMISE_POINTS.map((point) => (
+              <span key={point} className="inline-flex items-center gap-2">
+                <span className="h-1 w-1 rounded-full bg-sunset/70" />
+                {point}
+              </span>
+            ))}
+          </motion.div>
+
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.35 }}
+            transition={{ duration: 0.8, delay: 0.38 }}
             className="mt-10"
           >
             <Countdown />
