@@ -56,7 +56,7 @@ export default function Blog() {
       <SiteHeader />
 
       <main className="relative max-w-6xl mx-auto px-6 pt-16 pb-24">
-        <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[360px] w-[720px] -translate-x-1/2 rounded-full bg-sunset/10 blur-[120px]" />
+        <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[300px] w-[320px] -translate-x-1/2 rounded-full bg-sunset/10 blur-[120px] sm:h-[360px] sm:w-[720px]" />
 
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">

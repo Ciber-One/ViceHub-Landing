@@ -49,7 +49,7 @@ export const Footer = () => {
         className="absolute inset-x-0 top-0 h-px"
         style={{ background: "linear-gradient(90deg, transparent, rgba(255,123,84,0.5), transparent)" }}
       />
-      <div className="absolute right-[-20%] top-[-45%] h-[420px] w-[520px] rounded-full bg-sunset/10 blur-[120px]" />
+      <div className="absolute right-0 top-[-35%] h-[280px] w-[280px] rounded-full bg-sunset/10 blur-[120px] sm:right-[-20%] sm:top-[-45%] sm:h-[420px] sm:w-[520px]" />
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-16">
         <div className="grid gap-12 lg:grid-cols-[1.15fr_1fr]">
