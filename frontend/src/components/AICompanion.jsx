@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Sparkles, Send, Loader2 } from "lucide-react";
+import { ArrowRight, Loader2, Send, ShieldCheck, Sparkles, Zap } from "lucide-react";
 import { Reveal, Overline } from "@/components/Reveal";
 import { SUGGESTED_QUESTIONS, MEDIA } from "@/data/content";
 import { streamCompanion } from "@/lib/api";
@@ -23,6 +23,12 @@ const conceptReplies = [
     match: ["mission", "objective", "complete"],
     text: "When missions are live, ViceHub will keep your objectives, context, and next steps organized without spoiling the fun. You get momentum, not noise.",
   },
+];
+
+const companionHighlights = [
+  { icon: Zap, label: "Fast route ideas" },
+  { icon: ShieldCheck, label: "Fallback-safe replies" },
+  { icon: Sparkles, label: "Launch-ready tone" },
 ];
 
 const fallbackReply = (question) => {
@@ -53,121 +59,164 @@ export const AICompanion = () => {
   const [messages, setMessages] = useState([
     {
       role: "ai",
-      text: "Hey — I'm your ViceHub companion. Ask me anything about your GTA 6 journey, and I'll show you how I'll help once we launch.",
+      text: "Hey - I'm your ViceHub companion. Ask me anything about your GTA 6 journey, and I'll show you how I'll help once we launch.",
     },
   ]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
+  const [replyMode, setReplyMode] = useState("ready");
   const scrollRef = useRef(null);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages]);
 
+  const appendToLastAiMessage = (delta) => {
+    setMessages((current) => {
+      const copy = [...current];
+      copy[copy.length - 1] = { role: "ai", text: copy[copy.length - 1].text + delta };
+      return copy;
+    });
+  };
+
   const send = async (text) => {
     const q = (text || "").trim();
     if (!q || busy) return;
+
     setInput("");
-    setMessages((m) => [...m, { role: "user", text: q }, { role: "ai", text: "" }]);
+    setMessages((current) => [...current, { role: "user", text: q }, { role: "ai", text: "" }]);
     setBusy(true);
+    setReplyMode("thinking");
+
     try {
       await streamCompanion(q, sessionId, (delta) => {
-        setMessages((m) => {
-          const copy = [...m];
-          copy[copy.length - 1] = { role: "ai", text: copy[copy.length - 1].text + delta };
-          return copy;
-        });
+        setReplyMode("live");
+        appendToLastAiMessage(delta);
       });
     } catch {
-      await typeFallbackReply(fallbackReply(q), (delta) => {
-        setMessages((m) => {
-          const copy = [...m];
-          copy[copy.length - 1] = { role: "ai", text: copy[copy.length - 1].text + delta };
-          return copy;
-        });
-      });
+      setReplyMode("preview");
+      await typeFallbackReply(fallbackReply(q), appendToLastAiMessage);
     } finally {
       setBusy(false);
+      setReplyMode((mode) => (mode === "thinking" ? "ready" : mode));
     }
   };
 
+  const statusLabel = busy
+    ? replyMode === "preview"
+      ? "Preview fallback"
+      : "Thinking"
+    : replyMode === "live"
+      ? "Live response ready"
+      : replyMode === "preview"
+        ? "Preview fallback ready"
+        : "Ready";
+
   return (
-    <section className="relative py-24 md:py-32">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
+    <section className="relative overflow-hidden py-24 md:py-32">
+      <div className="pointer-events-none absolute left-1/2 top-20 -z-10 h-[360px] w-[360px] -translate-x-1/2 rounded-full bg-sunset/10 blur-[120px] lg:left-[70%] lg:h-[520px] lg:w-[520px]" />
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:px-8">
         <Reveal>
           <Overline>AI Companion</Overline>
-          <h2 className="mt-4 font-heading text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight text-tprimary">
+          <h2 className="mt-4 font-heading text-3xl font-medium tracking-tight text-tprimary md:text-4xl lg:text-5xl">
             A companion that actually gets your game.
           </h2>
-          <p className="mt-4 max-w-md text-base md:text-lg text-tsec">
+          <p className="mt-4 max-w-md text-base text-tsec md:text-lg">
             Ask a question and watch the experience respond. This interactive concept previews
             the calm, useful guidance ViceHub is building for launch.
           </p>
+
+          <div className="mt-7 grid max-w-lg gap-3 sm:grid-cols-3">
+            {companionHighlights.map(({ icon: Icon, label }) => (
+              <div key={label} className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
+                <Icon className="h-4 w-4 text-sunset" />
+                <p className="mt-2 text-sm font-medium text-tprimary">{label}</p>
+              </div>
+            ))}
+          </div>
+
           <div className="mt-8 flex flex-wrap gap-2.5">
-            {SUGGESTED_QUESTIONS.map((q) => (
+            {SUGGESTED_QUESTIONS.map((question) => (
               <button
-                key={q}
-                data-testid={`suggested-question-${q.slice(0, 10).replace(/\s/g, "-").toLowerCase()}`}
+                key={question}
+                data-testid={`suggested-question-${question.slice(0, 10).replace(/\s/g, "-").toLowerCase()}`}
                 disabled={busy}
-                onClick={() => send(q)}
-                className="rounded-full border border-white/10 bg-vice-card px-4 py-2 text-sm text-tsec hover:text-tprimary hover:border-sunset/40 transition-colors disabled:opacity-50"
+                onClick={() => send(question)}
+                className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-vice-card px-4 py-2 text-sm text-tsec transition-colors hover:border-sunset/40 hover:text-tprimary disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {q}
+                <span>{question}</span>
+                <ArrowRight className="h-3.5 w-3.5 text-sunset/80 transition-transform group-hover:translate-x-0.5" />
               </button>
             ))}
           </div>
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="rounded-2xl border border-white/10 bg-vice-card overflow-hidden shadow-[0_30px_70px_-30px_rgba(0,0,0,0.8)]">
-            <div className="flex items-center gap-3 border-b border-white/5 bg-vice-bg2/70 px-5 py-4">
-              <span
-                className="h-9 w-9 rounded-full bg-cover bg-center ring-1 ring-white/10"
-                style={{ backgroundImage: `url(${MEDIA.aiSphere})` }}
-              />
-              <div>
-                <div className="flex items-center gap-1.5 font-heading text-sm font-medium text-tprimary">
-                  ViceHub AI <Sparkles className="h-3.5 w-3.5 text-sunset" />
+          <div className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-vice-card shadow-[0_30px_70px_-30px_rgba(0,0,0,0.8)]">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/5 bg-vice-bg2/70 px-5 py-4">
+              <div className="flex items-center gap-3">
+                <span
+                  className="h-10 w-10 rounded-full bg-cover bg-center ring-1 ring-white/10"
+                  style={{ backgroundImage: `url(${MEDIA.aiSphere})` }}
+                />
+                <div>
+                  <div className="flex items-center gap-1.5 font-heading text-sm font-medium text-tprimary">
+                    ViceHub AI <Sparkles className="h-3.5 w-3.5 text-sunset" />
+                  </div>
+                  <div className="text-[11px] text-tsec/60">Companion preview</div>
                 </div>
-                <div className="text-[11px] text-tsec/60">Concept preview</div>
+              </div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.18em] text-tsec">
+                <span className={`h-2 w-2 rounded-full ${busy ? "animate-pulse bg-sunset" : "bg-emerald-400"}`} />
+                {statusLabel}
               </div>
             </div>
 
-            <div ref={scrollRef} data-testid="ai-chat-messages" className="h-80 overflow-y-auto px-5 py-5 space-y-4">
-              {messages.map((m, i) => (
-                <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+            <div
+              ref={scrollRef}
+              data-testid="ai-chat-messages"
+              className="h-[26rem] overflow-y-auto bg-gradient-to-b from-white/[0.02] to-transparent px-4 py-5 sm:px-5"
+            >
+              {messages.map((message, index) => (
+                <div key={`${message.role}-${index}`} className={`mb-4 flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
                   <div
-                    className={`max-w-[82%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
-                      m.role === "user"
-                        ? "bg-sunset text-vice-bg rounded-br-sm"
-                        : "bg-vice-bg2 text-tprimary/90 rounded-bl-sm border border-white/5"
+                    className={`max-w-[86%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-[0_12px_30px_rgba(0,0,0,0.22)] ${
+                      message.role === "user"
+                        ? "rounded-br-sm bg-sunset text-vice-bg"
+                        : "rounded-bl-sm border border-white/8 bg-vice-bg2 text-tprimary/90"
                     }`}
                   >
-                    {m.text || (busy && i === messages.length - 1 ? <Loader2 className="h-4 w-4 animate-spin text-sunset" /> : "")}
+                    {message.text || (busy && index === messages.length - 1 ? (
+                      <span className="inline-flex items-center gap-2 text-tsec">
+                        <Loader2 className="h-4 w-4 animate-spin text-sunset" />
+                        Thinking through your route...
+                      </span>
+                    ) : "")}
                   </div>
                 </div>
               ))}
             </div>
 
             <form
-              onSubmit={(e) => {
-                e.preventDefault();
+              onSubmit={(event) => {
+                event.preventDefault();
                 send(input);
               }}
-              className="flex items-center gap-2 border-t border-white/5 bg-vice-bg2/40 px-4 py-3"
+              className="flex items-center gap-3 border-t border-white/5 bg-vice-bg2/50 px-4 py-3"
             >
               <input
                 data-testid="ai-chat-input"
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask the companion anything…"
-                className="flex-1 bg-transparent text-sm text-tprimary placeholder:text-tsec/40 focus:outline-none"
+                onChange={(event) => setInput(event.target.value)}
+                placeholder="Ask the companion anything..."
+                className="min-w-0 flex-1 rounded-full border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-tprimary placeholder:text-tsec/40 transition-colors focus:border-sunset/40 focus:outline-none"
               />
               <button
                 type="submit"
                 data-testid="ai-chat-send-btn"
+                aria-label="Send AI companion message"
                 disabled={busy || !input.trim()}
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-sunset text-vice-bg disabled:opacity-40 hover:bg-coral transition-colors"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-sunset text-vice-bg transition-colors hover:bg-coral disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
               </button>

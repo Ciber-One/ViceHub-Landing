@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 const setNamed = (name, content) => {
   if (!content) return;
@@ -34,6 +34,8 @@ const setCanonical = (href) => {
 };
 
 export function useSeo({ title, description, image, url, type = "website", jsonLd } = {}) {
+  const jsonLdString = useMemo(() => (jsonLd ? JSON.stringify(jsonLd) : ""), [jsonLd]);
+
   useEffect(() => {
     if (title) document.title = title;
     setNamed("description", description);
@@ -51,18 +53,18 @@ export function useSeo({ title, description, image, url, type = "website", jsonL
 
     const id = "ld-json-article";
     let script = document.getElementById(id);
-    if (jsonLd) {
+    if (jsonLdString) {
       if (!script) {
         script = document.createElement("script");
         script.type = "application/ld+json";
         script.id = id;
         document.head.appendChild(script);
       }
-      script.textContent = JSON.stringify(jsonLd);
+      script.textContent = jsonLdString;
     }
     return () => {
       const s = document.getElementById(id);
       if (s) s.remove();
     };
-  }, [title, description, image, url, type, JSON.stringify(jsonLd)]);
+  }, [title, description, image, url, type, jsonLdString]);
 }
