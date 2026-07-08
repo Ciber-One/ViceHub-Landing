@@ -15,6 +15,34 @@ export const MEDIA = {
     "https://images.pexels.com/photos/9888046/pexels-photo-9888046.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
   palm:
     "https://images.unsplash.com/photo-1670811456186-e73d0ace9454?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MDV8MHwxfHNlYXJjaHwyfHxwYWxtJTIwdHJlZSUyMHNpbGhvdWV0dGUlMjBzdW5zZXR8ZW58MHx8fHwxNzgyNDcyMDkwfDA&ixlib=rb-4.1.0&q=85",
+  gtaViceCity:
+    "https://www.rockstargames.com/VI/_next/static/media/Vice_City_01.135x56yoeu.6t.jpg?akim=1&imdensity=1&imwidth=3840",
+  gtaViceCityPool:
+    "https://www.rockstargames.com/VI/_next/static/media/Vice_City_02.0c5.7qx17u9kl.jpg?akim=1&imdensity=1&imwidth=3840",
+  gtaViceCityAerial:
+    "https://www.rockstargames.com/VI/_next/static/media/Vice_City_03.0nqz~lrqdmlze.jpg?akim=1&imdensity=1&imwidth=3840",
+  gtaViceCityNeon:
+    "https://www.rockstargames.com/VI/_next/static/media/Vice_City_06.0_tdmr3u9w84x.jpg?akim=1&imdensity=1&imwidth=3840",
+  gtaViceCityStreet:
+    "https://www.rockstargames.com/VI/_next/static/media/Vice_City_09.0~ng.c8ack3fp.jpg?akim=1&imdensity=1&imwidth=3840",
+  gtaLeonidaKeys:
+    "https://www.rockstargames.com/VI/_next/static/media/Leonida_Keys_01.0zgz7tveur6y8.jpg?akim=1&imdensity=1&imwidth=3840",
+  gtaLeonidaKeysBar:
+    "https://www.rockstargames.com/VI/_next/static/media/Leonida_Keys_03.0v_3~-9ceyixc.jpg?akim=1&imdensity=1&imwidth=3840",
+  gtaGrassrivers:
+    "https://www.rockstargames.com/VI/_next/static/media/Grassrivers_01.1096rw4lbjur_.jpg?akim=1&imdensity=1&imwidth=3840",
+  gtaGrassriversTown:
+    "https://www.rockstargames.com/VI/_next/static/media/Grassrivers_02.0teqs5xe2pem1.jpg?akim=1&imdensity=1&imwidth=3840",
+  gtaGrassriversChase:
+    "https://www.rockstargames.com/VI/_next/static/media/Grassrivers_04.01ckpqbhxyz76.jpg?akim=1&imdensity=1&imwidth=3840",
+  gtaPortGellhornHeat:
+    "https://www.rockstargames.com/VI/_next/static/media/Port_Gellhorn_02.00e7cz6lwrup-.jpg?akim=1&imdensity=1&imwidth=3840",
+  gtaPortGellhornNight:
+    "https://www.rockstargames.com/VI/_next/static/media/Port_Gellhorn_05.0nsv0ou54n-t3.jpg?akim=1&imdensity=1&imwidth=3840",
+  gtaMountKalaga:
+    "https://www.rockstargames.com/VI/_next/static/media/Mount_Kalaga_National_Park_02.0f24dhopdprvx.jpg?akim=1&imdensity=1&imwidth=3840",
+  gtaAmbrosia:
+    "https://www.rockstargames.com/VI/_next/static/media/Ambrosia_03.0vt46a.1s.7-y.jpg?akim=1&imdensity=1&imwidth=3840",
 };
 
 export const PRODUCT_CARDS = [
@@ -24,7 +52,7 @@ export const PRODUCT_CARDS = [
     tag: "Ask anything",
     desc: "A conversational guide that understands how you play.",
     preview:
-      "Chat with an assistant that adapts to your playstyle — get personalized suggestions, route ideas, and answers in seconds. A living guide, always one tap away.",
+      "Chat with an assistant that adapts to your playstyle - get personalized suggestions, route ideas, and answers in seconds. A living guide, always one tap away.",
   },
   {
     id: "interactive-map",
@@ -64,7 +92,7 @@ export const PRODUCT_CARDS = [
     tag: "Overview",
     desc: "Your entire journey, at a glance.",
     preview:
-      "A single elegant home for your stats, streaks and milestones — designed to feel less like a spreadsheet and more like a premium control room.",
+      "A single elegant home for your stats, streaks and milestones - designed to feel less like a spreadsheet and more like a premium control room.",
   },
   {
     id: "business-planner",
@@ -80,7 +108,7 @@ export const PRODUCT_CARDS = [
     tag: "Stay current",
     desc: "Everything that matters, in one feed.",
     preview:
-      "A quiet, curated stream of updates and discoveries. No noise, no clutter — just the things worth knowing, beautifully presented.",
+      "A quiet, curated stream of updates and discoveries. No noise, no clutter - just the things worth knowing, beautifully presented.",
   },
 ];
 
@@ -133,5 +161,5 @@ export const FAQS = [
   { q: "Do I need an account?", a: "You can explore plenty without one. An account simply lets you sync progress and personalize your companion." },
   { q: "Will there be a mobile app?", a: "Yes. A dedicated mobile app is on the roadmap so ViceHub travels with you everywhere." },
   { q: "Can I use it on desktop and mobile?", a: "Absolutely. ViceHub is designed mobile-first and scales beautifully to desktop, with cloud sync across devices." },
-  { q: "How will updates work?", a: "ViceHub updates continuously and quietly. New features and content arrive automatically — no manual installs." },
+  { q: "How will updates work?", a: "ViceHub updates continuously and quietly. New features and content arrive automatically - no manual installs." },
 ];

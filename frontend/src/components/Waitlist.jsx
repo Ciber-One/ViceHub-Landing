@@ -6,16 +6,16 @@ export const Waitlist = () => {
   return (
     <section id="waitlist" className="relative py-24 md:py-32 overflow-hidden">
       <div
-        className="absolute inset-0 -z-10 opacity-45"
+        className="absolute inset-0 -z-10 opacity-[0.76]"
         style={{
-          backgroundImage: `url(${MEDIA.palm})`,
+          backgroundImage: `url(${MEDIA.gtaViceCityPool})`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "center 44%",
         }}
       />
-      <div className="absolute inset-0 -z-10" style={{ background: "linear-gradient(180deg, #0A0A0A 0%, rgba(10,10,10,0.45) 45%, rgba(10,10,10,0.75) 100%)" }} />
+      <div className="absolute inset-0 -z-10" style={{ background: "linear-gradient(180deg, #09050C 0%, rgba(9,5,12,0.2) 42%, rgba(9,5,12,0.82) 100%), linear-gradient(90deg, rgba(9,5,12,0.8) 0%, rgba(9,5,12,0.28) 50%, rgba(9,5,12,0.76) 100%)" }} />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-[400px] w-[700px] rounded-full opacity-30 blur-[120px]"
-        style={{ background: "radial-gradient(circle, rgba(255,123,84,0.25), transparent 60%)" }} />
+        style={{ background: "radial-gradient(circle, rgba(244,107,180,0.26), transparent 60%)" }} />
 
       <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
         <Reveal>

@@ -13,16 +13,16 @@ module.exports = {
       },
       colors: {
         vice: {
-          bg: '#0A0A0A',
-          bg2: '#16181D',
-          card: '#1E2228',
+          bg: '#09050C',
+          bg2: '#16101D',
+          card: '#201724',
         },
         tprimary: '#F5F5F2',
         tsec: '#C8CCD1',
-        sunset: '#FF7B54',
-        coral: '#FF9F89',
-        vicepink: '#E08E9B',
-        ocean: '#2B7A9A',
+        sunset: '#FF6B4A',
+        coral: '#FFB067',
+        vicepink: '#F46BB4',
+        ocean: '#36B7D8',
         borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',

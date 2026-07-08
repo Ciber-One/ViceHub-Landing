@@ -2,6 +2,7 @@ import { ArrowUpRight, Instagram, Mail, MessageCircle, Rss, Twitter, Youtube } f
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Logo } from "@/components/Logo";
+import { MEDIA } from "@/data/content";
 import { API } from "@/lib/blogApi";
 
 const SOCIALS = [
@@ -45,6 +46,14 @@ export const Footer = () => {
 
   return (
     <footer className="relative overflow-hidden border-t border-white/5 bg-vice-bg2/40">
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.24]"
+        style={{
+          backgroundImage: `linear-gradient(90deg, #09050C 0%, rgba(9,5,12,0.72) 48%, rgba(9,5,12,0.48) 100%), linear-gradient(180deg, rgba(9,5,12,0.78) 0%, #09050C 100%), url(${MEDIA.gtaAmbrosia})`,
+          backgroundPosition: "center 42%",
+          backgroundSize: "cover",
+        }}
+      />
       <div
         className="absolute inset-x-0 top-0 h-px"
         style={{ background: "linear-gradient(90deg, transparent, rgba(255,123,84,0.5), transparent)" }}

@@ -3,6 +3,7 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 import { Countdown } from "@/components/Countdown";
 import { HeroMockup } from "@/components/HeroMockup";
 import { useWaitlist } from "@/context/WaitlistContext";
+import { MEDIA } from "@/data/content";
 
 const PROMISE_POINTS = ["AI guidance", "Map-ready planning", "Progress memory"];
 
@@ -14,12 +15,34 @@ export const Hero = () => {
     <section className="relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden">
       <div className="absolute inset-0 -z-10">
         <div
+          className="absolute inset-0 opacity-[0.86]"
+          style={{
+            backgroundImage: `url(${MEDIA.gtaViceCityNeon})`,
+            backgroundPosition: "center 48%",
+            backgroundSize: "cover",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(9,5,12,0.97) 0%, rgba(9,5,12,0.72) 40%, rgba(9,5,12,0.14) 100%), linear-gradient(180deg, rgba(9,5,12,0.04) 0%, rgba(9,5,12,0.12) 52%, #09050C 98%)",
+          }}
+        />
+        <div
+          className="absolute inset-y-0 right-0 w-[58%] opacity-70"
+          style={{
+            background:
+              "radial-gradient(circle at 70% 35%, rgba(244,107,180,0.18), transparent 34%), radial-gradient(circle at 78% 58%, rgba(54,183,216,0.16), transparent 38%)",
+          }}
+        />
+        <div
           className="absolute top-[-10%] left-1/2 -translate-x-1/2 h-[600px] w-[900px] rounded-full opacity-40 blur-[120px]"
-          style={{ background: "radial-gradient(circle, rgba(255,123,84,0.18), transparent 60%)" }}
+          style={{ background: "radial-gradient(circle, rgba(255,107,74,0.22), transparent 60%)" }}
         />
         <div
           className="absolute bottom-[-20%] right-[-10%] h-[500px] w-[600px] rounded-full opacity-30 blur-[120px]"
-          style={{ background: "radial-gradient(circle, rgba(43,122,154,0.22), transparent 60%)" }}
+          style={{ background: "radial-gradient(circle, rgba(54,183,216,0.24), transparent 60%)" }}
         />
       </div>
 
@@ -69,11 +92,11 @@ export const Hero = () => {
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </button>
             <button
-              data-testid="hero-see-coming-btn"
-              onClick={() => scrollTo("#features")}
+              data-testid="hero-ai-companion-btn"
+              onClick={() => scrollTo("#ai-companion")}
               className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-7 py-3.5 text-sm font-semibold text-tprimary hover:bg-white/5 transition-colors duration-300"
             >
-              See What's Coming
+              Try AI Companion
             </button>
           </motion.div>
 

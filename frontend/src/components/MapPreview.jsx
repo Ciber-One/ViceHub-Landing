@@ -6,7 +6,16 @@ const FILTERS = ["All", "Missions", "Vehicles", "Hidden", "Businesses"];
 
 export const MapPreview = () => {
   return (
-    <section className="relative py-24 md:py-32">
+    <section className="relative overflow-hidden py-24 md:py-32">
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.4]"
+        style={{
+          backgroundImage: `linear-gradient(90deg, #09050C 0%, rgba(9,5,12,0.62) 44%, rgba(9,5,12,0.2) 100%), linear-gradient(180deg, #09050C 0%, rgba(9,5,12,0.06) 44%, #09050C 100%), url(${MEDIA.gtaGrassriversChase})`,
+          backgroundPosition: "center 45%",
+          backgroundSize: "cover",
+        }}
+      />
+      <div className="pointer-events-none absolute left-[-12%] top-20 -z-10 h-[380px] w-[520px] rounded-full bg-ocean/10 blur-[120px]" />
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <Reveal className="text-center max-w-2xl mx-auto">
           <Overline>Interactive Map</Overline>
@@ -24,7 +33,7 @@ export const MapPreview = () => {
             <div className="absolute top-5 left-5 right-5 flex flex-wrap items-center gap-3">
               <div className="flex items-center gap-2 rounded-full border border-white/10 bg-vice-bg/70 backdrop-blur-md px-4 py-2 text-sm text-tsec/70" data-testid="map-search">
                 <Search className="h-4 w-4" />
-                Search locations…
+                Search locations...
               </div>
               <div className="flex flex-wrap gap-2">
                 {FILTERS.map((f, i) => (
@@ -59,7 +68,7 @@ export const MapPreview = () => {
 
             {/* center overlay */}
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-              <div className="rounded-2xl border border-white/10 bg-vice-bg/60 backdrop-blur-md px-8 py-6">
+              <div className="rounded-2xl border border-white/10 bg-vice-bg/65 px-8 py-6 shadow-[0_22px_60px_-32px_rgba(0,0,0,0.85)] backdrop-blur-md">
                 <h3 className="font-heading text-2xl md:text-3xl font-medium text-tprimary">Interactive Map</h3>
                 <span className="mt-3 inline-block rounded-full border border-white/15 px-4 py-1.5 text-xs text-tsec">
                   Coming Soon

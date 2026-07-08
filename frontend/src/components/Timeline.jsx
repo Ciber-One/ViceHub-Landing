@@ -1,11 +1,20 @@
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { Reveal, Overline } from "@/components/Reveal";
-import { TIMELINE } from "@/data/content";
+import { MEDIA, TIMELINE } from "@/data/content";
 
 export const Timeline = () => {
   return (
-    <section id="roadmap" className="relative py-24 md:py-32">
+    <section id="roadmap" className="relative overflow-hidden py-24 md:py-32">
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.42]"
+        style={{
+          backgroundImage: `linear-gradient(90deg, #09050C 0%, rgba(9,5,12,0.7) 44%, rgba(9,5,12,0.26) 100%), linear-gradient(180deg, #09050C 0%, rgba(9,5,12,0.08) 48%, #09050C 100%), url(${MEDIA.gtaMountKalaga})`,
+          backgroundPosition: "center 48%",
+          backgroundSize: "cover",
+        }}
+      />
+      <div className="pointer-events-none absolute left-1/2 top-24 -z-10 h-[420px] w-[680px] -translate-x-1/2 rounded-full bg-sunset/10 blur-[130px]" />
       <div className="max-w-4xl mx-auto px-6 lg:px-8">
         <Reveal className="text-center">
           <Overline>The Journey</Overline>
@@ -19,7 +28,7 @@ export const Timeline = () => {
           <div className="space-y-8">
             {TIMELINE.map((node, i) => (
               <Reveal key={node.label} delay={i * 0.08}>
-                <div className="relative flex items-start gap-5" data-testid={`timeline-node-${i}`}>
+                <div className="relative flex items-start gap-5 rounded-2xl border border-white/5 bg-vice-card/[0.72] p-5 shadow-[0_18px_46px_-34px_rgba(0,0,0,0.8)] backdrop-blur-sm" data-testid={`timeline-node-${i}`}>
                   <span
                     className={`relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border ${
                       node.state === "active"
