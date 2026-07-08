@@ -1,6 +1,7 @@
 export const LAUNCH_DATE = "2026-11-19T00:00:00Z";
-export const LOGO_URL =
-  "https://customer-assets.emergentagent.com/job_c3ff5206-e1ba-4182-b507-06a131cfcfbd/artifacts/0joyfyle_vicehub2.png";
+export const LOGO_URL = "/vicehub.png";
+export const LOGO_LIGHT_URL = "/vicehub-logo-light.png";
+export const LOGO_MARK_URL = "/vicehub-mark-light.png";
 
 export const MEDIA = {
   viceMap:

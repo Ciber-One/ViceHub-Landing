@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { ArrowUpRight, Bot, Building2, Car, Gem, LayoutDashboard, Map, Newspaper, Target } from "lucide-react";
 import {
   Dialog,
@@ -26,6 +27,23 @@ const cardIcons = {
 export const ProductPreview = () => {
   const [active, setActive] = useState(null);
   const { openWaitlist } = useWaitlist();
+  const navigate = useNavigate();
+
+  const openCard = (card) => {
+    if (card.id === "ai-companion") {
+      document.querySelector("#ai-companion")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+
+    if (card.id === "news-hub") {
+      navigate("/blog");
+      return;
+    }
+
+    setActive(card);
+  };
+
+  const cardStatus = (id) => (id === "ai-companion" || id === "news-hub" ? "Live" : "Coming Soon");
 
   return (
     <section id="features" className="relative overflow-hidden py-24 md:py-32">
@@ -54,7 +72,7 @@ export const ProductPreview = () => {
             <Reveal key={card.id} delay={(i % 4) * 0.06}>
               <button
                 data-testid={`product-card-${card.id}`}
-                onClick={() => setActive(card)}
+                onClick={() => openCard(card)}
                 className={`group relative h-full w-full overflow-hidden rounded-2xl border p-6 text-left shadow-[0_18px_48px_-32px_rgba(0,0,0,0.84)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_62px_-26px_rgba(0,0,0,0.82)] ${
                   card.id === "ai-companion"
                     ? "border-sunset/25 bg-gradient-to-br from-sunset/[0.18] via-vice-card/[0.9] to-vice-card/[0.92]"
@@ -74,8 +92,14 @@ export const ProductPreview = () => {
                 <h3 className="mt-6 font-heading text-xl font-medium text-tprimary">{card.title}</h3>
                 <p className="mt-2 text-sm text-tsec leading-relaxed">{card.desc}</p>
                 <div className="mt-6 flex items-center justify-between gap-3">
-                  <span className="inline-block rounded-full border border-white/10 bg-white/[0.025] px-3 py-1 text-[11px] text-tsec/70">
-                    Coming Soon
+                  <span
+                    className={`inline-block rounded-full border px-3 py-1 text-[11px] ${
+                      cardStatus(card.id) === "Live"
+                        ? "border-sunset/30 bg-sunset/[0.12] text-sunset"
+                        : "border-white/10 bg-white/[0.025] text-tsec/70"
+                    }`}
+                  >
+                    {cardStatus(card.id)}
                   </span>
                   <ArrowUpRight className="h-4 w-4 text-tsec/35 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-sunset" />
                 </div>

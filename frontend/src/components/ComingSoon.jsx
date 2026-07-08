@@ -37,7 +37,9 @@ export const ComingSoon = () => {
                   </span>
                   <h3 className="mt-4 font-heading text-base font-medium text-tprimary">{c.title}</h3>
                   <p className="mt-1 text-xs text-tsec/70">{c.sub}</p>
-                  <span className="mt-3 inline-block text-[10px] uppercase tracking-widest text-sunset/70">Coming Soon</span>
+                  <span className="mt-3 inline-block text-[10px] uppercase tracking-widest text-sunset/70">
+                    {c.title === "AI Companion" ? "Live" : "Coming Soon"}
+                  </span>
                 </div>
               </Reveal>
             );

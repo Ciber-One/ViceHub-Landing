@@ -1,18 +1,15 @@
-import { LOGO_URL } from "@/data/content";
+import { LOGO_LIGHT_URL, LOGO_MARK_URL } from "@/data/content";
 
 export const Logo = ({ className = "h-10", withText = false }) => {
   if (withText) {
     return (
-      <div className="flex items-center gap-2.5" data-testid="vicehub-logo">
-        <div
-          className="h-10 w-10 shrink-0"
-          style={{
-            backgroundImage: `url(${LOGO_URL})`,
-            backgroundSize: "165%",
-            backgroundPosition: "center 36%",
-            backgroundRepeat: "no-repeat",
-            mixBlendMode: "screen",
-          }}
+      <div className="flex items-center gap-2" data-testid="vicehub-logo">
+        <img
+          src={LOGO_MARK_URL}
+          alt=""
+          aria-hidden="true"
+          draggable={false}
+          className="h-8 w-10 shrink-0 object-contain"
         />
         <span className="font-heading text-lg font-semibold tracking-tight leading-none">
           <span className="text-silver">VICE</span>
@@ -21,14 +18,14 @@ export const Logo = ({ className = "h-10", withText = false }) => {
       </div>
     );
   }
+
   return (
     <img
-      src={LOGO_URL}
-      alt="ViceHub — Your GTA 6 AI Companion"
+      src={LOGO_LIGHT_URL}
+      alt="ViceHub - Your GTA 6 AI Companion"
       data-testid="vicehub-logo"
       draggable={false}
       className={`${className} w-auto select-none object-contain`}
-      style={{ mixBlendMode: "screen" }}
     />
   );
 };

@@ -1,6 +1,8 @@
 import axios from "axios";
 
-export const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL?.replace(/\/$/, "");
+
+export const API = BACKEND_URL ? `${BACKEND_URL}/api` : "/api";
 export const TOKEN_KEY = "vh_admin_token";
 
 export const imageUrl = (path) => {
@@ -15,11 +17,17 @@ const authHeaders = () => {
 };
 
 export const blogApi = {
-  list: async () => (await axios.get(`${API}/blog/posts`)).data,
+  list: async () => {
+    const data = (await axios.get(`${API}/blog/posts`)).data;
+    return Array.isArray(data) ? data : [];
+  },
   get: async (slug) => (await axios.get(`${API}/blog/posts/${slug}`)).data,
   login: async (email, password) => (await axios.post(`${API}/auth/login`, { email, password })).data,
   me: async () => (await axios.get(`${API}/auth/me`, { headers: authHeaders() })).data,
-  adminList: async () => (await axios.get(`${API}/blog/admin/posts`, { headers: authHeaders() })).data,
+  adminList: async () => {
+    const data = (await axios.get(`${API}/blog/admin/posts`, { headers: authHeaders() })).data;
+    return Array.isArray(data) ? data : [];
+  },
   adminGet: async (id) => (await axios.get(`${API}/blog/admin/posts/${id}`, { headers: authHeaders() })).data,
   create: async (data) => (await axios.post(`${API}/blog/posts`, data, { headers: authHeaders() })).data,
   update: async (id, data) => (await axios.put(`${API}/blog/posts/${id}`, data, { headers: authHeaders() })).data,
