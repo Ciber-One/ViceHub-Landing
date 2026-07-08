@@ -7,7 +7,7 @@ export const WhyLoveIt = () => {
       <div
         className="pointer-events-none absolute inset-0 -z-10 opacity-[0.38]"
         style={{
-          backgroundImage: `linear-gradient(90deg, rgba(9,5,12,0.9) 0%, rgba(9,5,12,0.5) 48%, rgba(9,5,12,0.28) 100%), linear-gradient(180deg, #09050C 0%, rgba(9,5,12,0.08) 48%, #09050C 100%), url(${MEDIA.gtaLeonidaKeysBar})`,
+          backgroundImage: `linear-gradient(90deg, rgba(9,5,12,0.92) 0%, rgba(9,5,12,0.56) 48%, rgba(9,5,12,0.34) 100%), linear-gradient(180deg, #09050C 0%, rgba(9,5,12,0.08) 48%, #09050C 100%), url(${MEDIA.gtaViceCityStreet})`,
           backgroundPosition: "center 46%",
           backgroundSize: "cover",
         }}

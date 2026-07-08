@@ -12,13 +12,13 @@ export const Hero = () => {
   const scrollTo = (id) => document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <section className="relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden">
+    <section className="relative flex min-h-screen items-center overflow-hidden pb-16 pt-24 sm:pb-20 sm:pt-28">
       <div className="absolute inset-0 -z-10">
         <div
-          className="absolute inset-0 opacity-[0.86]"
+          className="absolute inset-0 opacity-[0.72] sm:opacity-[0.82]"
           style={{
-            backgroundImage: `url(${MEDIA.gtaViceCityNeon})`,
-            backgroundPosition: "center 48%",
+            backgroundImage: `url(${MEDIA.gtaViceCityAerial})`,
+            backgroundPosition: "60% center",
             backgroundSize: "cover",
           }}
         />
@@ -26,7 +26,14 @@ export const Hero = () => {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, rgba(9,5,12,0.97) 0%, rgba(9,5,12,0.72) 40%, rgba(9,5,12,0.14) 100%), linear-gradient(180deg, rgba(9,5,12,0.04) 0%, rgba(9,5,12,0.12) 52%, #09050C 98%)",
+              "linear-gradient(90deg, rgba(9,5,12,0.98) 0%, rgba(9,5,12,0.78) 48%, rgba(9,5,12,0.42) 100%), linear-gradient(180deg, rgba(9,5,12,0.46) 0%, rgba(9,5,12,0.2) 46%, #09050C 98%)",
+          }}
+        />
+        <div
+          className="absolute inset-0 sm:hidden"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(9,5,12,0.74) 0%, rgba(9,5,12,0.28) 34%, rgba(9,5,12,0.7) 70%, #09050C 100%)",
           }}
         />
         <div
@@ -46,13 +53,13 @@ export const Hero = () => {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full grid lg:grid-cols-2 gap-12 lg:gap-10 items-center">
-        <div>
+      <div className="mx-auto grid w-full max-w-7xl items-center gap-8 px-5 sm:px-6 lg:grid-cols-2 lg:gap-10 lg:px-8">
+        <div className="max-w-2xl">
           <motion.span
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs text-tsec"
+            className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/10 bg-vice-bg/[0.42] px-4 py-1.5 text-xs text-tsec backdrop-blur-md"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-sunset animate-pulse" />
             Launching alongside GTA 6 - Nov 19, 2026
@@ -62,7 +69,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.05 }}
-            className="mt-6 font-heading text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tighter leading-[1.05] text-tprimary"
+            className="mt-5 font-heading text-[2.65rem] font-medium leading-[1.02] tracking-tighter text-tprimary sm:mt-6 sm:text-5xl lg:text-6xl"
           >
             Your GTA 6 <span className="text-sunset-grad">launch-day command center</span>.
           </motion.h1>
@@ -71,7 +78,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="mt-6 max-w-xl text-base md:text-lg text-tsec leading-relaxed"
+            className="mt-5 max-w-xl text-base leading-relaxed text-tsec sm:mt-6 md:text-lg"
           >
             ViceHub brings AI guidance, planning tools, and progress tracking into one calm, premium companion for
             the first day in Vice City and every session after.
@@ -81,12 +88,12 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.25 }}
-            className="mt-8 flex flex-col sm:flex-row gap-3"
+            className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row"
           >
             <button
               data-testid="hero-join-waitlist-btn"
               onClick={openWaitlist}
-              className="group inline-flex items-center justify-center gap-2 rounded-full bg-sunset px-7 py-3.5 text-sm font-semibold text-vice-bg hover:bg-coral transition-colors duration-300"
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-sunset px-7 py-3.5 text-sm font-semibold text-vice-bg transition-colors duration-300 hover:bg-coral"
             >
               Join the Waitlist
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -94,7 +101,7 @@ export const Hero = () => {
             <button
               data-testid="hero-ai-companion-btn"
               onClick={() => scrollTo("#ai-companion")}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-7 py-3.5 text-sm font-semibold text-tprimary hover:bg-white/5 transition-colors duration-300"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-vice-bg/[0.28] px-7 py-3.5 text-sm font-semibold text-tprimary backdrop-blur-md transition-colors duration-300 hover:bg-white/5"
             >
               Try AI Companion
             </button>
@@ -104,7 +111,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.32 }}
-            className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-xs text-tsec/60"
+            className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-xs text-tsec/65 sm:mt-8"
           >
             {PROMISE_POINTS.map((point) => (
               <span key={point} className="inline-flex items-center gap-2">
@@ -118,7 +125,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.38 }}
-            className="mt-10"
+            className="mt-8 sm:mt-10"
           >
             <Countdown />
             <p className="mt-3 text-xs text-tsec/50 max-w-md">
@@ -132,7 +139,9 @@ export const Hero = () => {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
         >
-          <HeroMockup />
+          <div className="hidden lg:block">
+            <HeroMockup />
+          </div>
         </motion.div>
       </div>
 

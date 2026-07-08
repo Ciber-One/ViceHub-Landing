@@ -1,5 +1,6 @@
 import os
 import requests
+from fastapi import HTTPException
 
 APP_NAME = "vicehub"
 
@@ -11,17 +12,28 @@ MIME_TYPES = {
     "webp": "image/webp",
 }
 
-SUPABASE_URL = os.environ["SUPABASE_URL"]
-SUPABASE_SERVICE_ROLE_KEY = os.environ["SUPABASE_SERVICE_ROLE_KEY"]
 SUPABASE_BUCKET = os.environ.get("SUPABASE_BUCKET", "blog-images")
 
 
+def _settings():
+    url = os.environ.get("SUPABASE_URL")
+    key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
+    if not url or not key:
+        raise HTTPException(status_code=503, detail="Storage is not configured")
+    return url.rstrip("/"), key
+
+
+def init_storage():
+    _settings()
+
+
 def put_object(path: str, data: bytes, content_type: str):
-    url = f"{SUPABASE_URL}/storage/v1/object/{SUPABASE_BUCKET}/{path}"
+    supabase_url, service_role_key = _settings()
+    url = f"{supabase_url}/storage/v1/object/{SUPABASE_BUCKET}/{path}"
 
     headers = {
-        "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}",
-        "apikey": SUPABASE_SERVICE_ROLE_KEY,
+        "Authorization": f"Bearer {service_role_key}",
+        "apikey": service_role_key,
         "Content-Type": content_type,
         "x-upsert": "true",
     }
@@ -32,7 +44,7 @@ def put_object(path: str, data: bytes, content_type: str):
         r.raise_for_status()
 
     public_url = (
-        f"{SUPABASE_URL}/storage/v1/object/public/"
+        f"{supabase_url}/storage/v1/object/public/"
         f"{SUPABASE_BUCKET}/{path}"
     )
 
@@ -42,8 +54,9 @@ def put_object(path: str, data: bytes, content_type: str):
 
 
 def get_object(path: str):
+    supabase_url, _ = _settings()
     url = (
-        f"{SUPABASE_URL}/storage/v1/object/public/"
+        f"{supabase_url}/storage/v1/object/public/"
         f"{SUPABASE_BUCKET}/{path}"
     )
 

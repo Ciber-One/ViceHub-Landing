@@ -119,18 +119,19 @@ export const AICompanion = () => {
         : "Ready";
 
   return (
-    <section id="ai-companion" className="relative overflow-hidden py-24 md:py-32">
+    <section id="ai-companion" className="relative overflow-hidden py-20 md:py-32">
       <div
-        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.42]"
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.34] sm:opacity-[0.42]"
         style={{
-          backgroundImage: `linear-gradient(90deg, #09050C 0%, rgba(9,5,12,0.74) 42%, rgba(9,5,12,0.3) 100%), linear-gradient(180deg, #09050C 0%, rgba(9,5,12,0.1) 42%, #09050C 100%), url(${MEDIA.gtaPortGellhornHeat})`,
-          backgroundPosition: "center 46%",
+          backgroundImage: `linear-gradient(90deg, #09050C 0%, rgba(9,5,12,0.78) 45%, rgba(9,5,12,0.34) 100%), linear-gradient(180deg, #09050C 0%, rgba(9,5,12,0.14) 42%, #09050C 100%), url(${MEDIA.gtaGrassriversChase})`,
+          backgroundPosition: "center 48%",
           backgroundSize: "cover",
         }}
       />
+      <div className="pointer-events-none absolute inset-0 -z-10 sm:hidden" style={{ background: "linear-gradient(180deg, #09050C 0%, rgba(9,5,12,0.62) 34%, #09050C 100%)" }} />
       <div className="pointer-events-none absolute left-1/2 top-20 -z-10 h-[360px] w-[360px] -translate-x-1/2 rounded-full bg-sunset/10 blur-[120px] lg:left-[70%] lg:h-[520px] lg:w-[520px]" />
       <div className="pointer-events-none absolute bottom-10 left-[8%] -z-10 h-[320px] w-[420px] rounded-full bg-ocean/10 blur-[120px]" />
-      <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-[0.92fr_1.08fr] lg:px-8">
+      <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12 lg:px-8">
         <Reveal>
           <Overline>AI Companion</Overline>
           <h2 className="mt-4 font-heading text-3xl font-medium tracking-tight text-tprimary md:text-4xl lg:text-5xl">
@@ -151,7 +152,7 @@ export const AICompanion = () => {
             ))}
           </div>
 
-          <div className="mt-6 grid max-w-lg gap-2 rounded-3xl border border-white/10 bg-vice-bg/[0.46] p-3 backdrop-blur-md sm:grid-cols-3">
+          <div className="mt-6 grid max-w-lg gap-2 rounded-3xl border border-white/10 bg-vice-bg/[0.58] p-3 backdrop-blur-md sm:grid-cols-3">
             {companionContext.map(({ icon: Icon, label, value }) => (
               <div key={label} className="flex items-center gap-3 rounded-2xl bg-white/[0.035] px-3 py-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]">
@@ -182,12 +183,12 @@ export const AICompanion = () => {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-vice-card/[0.84] shadow-[0_34px_95px_-42px_rgba(0,0,0,0.9)] backdrop-blur-xl">
+          <div className="relative overflow-hidden rounded-[1.35rem] border border-white/10 bg-vice-card/[0.88] shadow-[0_34px_95px_-42px_rgba(0,0,0,0.9)] backdrop-blur-xl sm:rounded-[1.75rem]">
             <div
               className="pointer-events-none absolute inset-x-0 top-0 h-32 opacity-[0.72]"
               style={{ background: "linear-gradient(120deg, rgba(255,107,74,0.18), rgba(244,107,180,0.1), rgba(54,183,216,0.12))" }}
             />
-            <div className="relative flex flex-wrap items-center justify-between gap-3 border-b border-white/5 bg-vice-bg2/[0.72] px-5 py-4">
+            <div className="relative flex flex-wrap items-center justify-between gap-3 border-b border-white/5 bg-vice-bg2/[0.76] px-4 py-4 sm:px-5">
               <div className="flex items-center gap-3">
                 <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/10 bg-gradient-to-br from-sunset/25 via-vicepink/20 to-ocean/20 shadow-[0_0_28px_rgba(255,107,74,0.18)]">
                   <Sparkles className="h-5 w-5 text-coral" strokeWidth={1.7} />
@@ -206,7 +207,7 @@ export const AICompanion = () => {
               </div>
             </div>
 
-            <div className="relative grid grid-cols-3 border-b border-white/5 bg-vice-bg/[0.36] px-5 py-3 text-center">
+            <div className="relative grid grid-cols-3 border-b border-white/5 bg-vice-bg/[0.42] px-3 py-3 text-center sm:px-5">
               <div>
                 <div className="text-[10px] uppercase tracking-[0.18em] text-tsec/40">Memory</div>
                 <div className="mt-1 font-heading text-sm text-tprimary">Session</div>
@@ -224,12 +225,12 @@ export const AICompanion = () => {
             <div
               ref={scrollRef}
               data-testid="ai-chat-messages"
-              className="relative h-[26rem] overflow-y-auto bg-gradient-to-b from-white/[0.025] to-transparent px-4 py-5 sm:px-5"
+              className="relative h-[23rem] overflow-y-auto bg-gradient-to-b from-white/[0.025] to-transparent px-3 py-4 sm:h-[26rem] sm:px-5 sm:py-5"
             >
               {messages.map((message, index) => (
                 <div key={`${message.role}-${index}`} className={`mb-4 flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
                   <div
-                    className={`max-w-[86%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-[0_12px_30px_rgba(0,0,0,0.22)] ${
+                    className={`max-w-[90%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-[0_12px_30px_rgba(0,0,0,0.22)] sm:max-w-[86%] ${
                       message.role === "user"
                         ? "rounded-br-sm bg-gradient-to-br from-coral to-sunset text-vice-bg"
                         : "rounded-bl-sm border border-white/10 bg-vice-bg2/[0.86] text-tprimary/90 backdrop-blur-sm"
@@ -251,7 +252,7 @@ export const AICompanion = () => {
                 event.preventDefault();
                 send(input);
               }}
-              className="relative flex items-center gap-3 border-t border-white/5 bg-vice-bg2/[0.62] px-4 py-3"
+              className="relative flex items-center gap-2 border-t border-white/5 bg-vice-bg2/[0.66] px-3 py-3 sm:gap-3 sm:px-4"
             >
               <input
                 data-testid="ai-chat-input"

@@ -38,16 +38,16 @@ export const Navbar = () => {
   };
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 flex justify-center px-4 pt-4">
+    <header className="fixed top-0 inset-x-0 z-50 flex justify-center px-3 pt-3 sm:px-4 sm:pt-4">
       <nav
         data-testid="main-nav"
-        className={`w-full max-w-6xl rounded-2xl border transition-all duration-500 ${
+        className={`w-full max-w-6xl rounded-[1.15rem] border transition-all duration-500 sm:rounded-2xl ${
           scrolled || mobileOpen
             ? "glass border-white/10 shadow-[0_8px_40px_rgba(0,0,0,0.45)]"
             : "border-transparent bg-transparent"
         }`}
       >
-        <div className="flex items-center justify-between px-4 sm:px-6 h-16">
+        <div className="flex h-14 items-center justify-between px-4 sm:h-16 sm:px-6">
           <button onClick={() => go("body")} data-testid="nav-logo-btn" className="cursor-pointer">
             <Logo withText />
           </button>
@@ -91,7 +91,7 @@ export const Navbar = () => {
 
         {mobileOpen && (
           <div
-            className="fixed inset-x-4 top-[5.75rem] z-[60] max-h-[calc(100vh-7rem)] overflow-y-auto rounded-3xl border border-white/10 bg-[#080706]/95 p-4 shadow-[0_24px_80px_rgba(0,0,0,0.75)] backdrop-blur-2xl md:hidden"
+            className="fixed inset-x-3 top-[4.75rem] z-[60] max-h-[calc(100vh-6rem)] overflow-y-auto rounded-[1.35rem] border border-white/10 bg-[#080706]/95 p-4 shadow-[0_24px_80px_rgba(0,0,0,0.75)] backdrop-blur-2xl sm:inset-x-4 sm:top-[5.75rem] sm:max-h-[calc(100vh-7rem)] sm:rounded-3xl md:hidden"
             data-testid="mobile-menu"
           >
             <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-sunset/60 to-transparent" />

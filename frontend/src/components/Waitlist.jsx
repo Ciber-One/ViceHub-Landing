@@ -4,16 +4,16 @@ import { MEDIA } from "@/data/content";
 
 export const Waitlist = () => {
   return (
-    <section id="waitlist" className="relative py-24 md:py-32 overflow-hidden">
+    <section id="waitlist" className="relative overflow-hidden py-20 md:py-32">
       <div
-        className="absolute inset-0 -z-10 opacity-[0.76]"
+        className="absolute inset-0 -z-10 opacity-[0.62] sm:opacity-[0.72]"
         style={{
-          backgroundImage: `url(${MEDIA.gtaViceCityPool})`,
+          backgroundImage: `url(${MEDIA.gtaMountKalaga})`,
           backgroundSize: "cover",
-          backgroundPosition: "center 44%",
+          backgroundPosition: "center 48%",
         }}
       />
-      <div className="absolute inset-0 -z-10" style={{ background: "linear-gradient(180deg, #09050C 0%, rgba(9,5,12,0.2) 42%, rgba(9,5,12,0.82) 100%), linear-gradient(90deg, rgba(9,5,12,0.8) 0%, rgba(9,5,12,0.28) 50%, rgba(9,5,12,0.76) 100%)" }} />
+      <div className="absolute inset-0 -z-10" style={{ background: "linear-gradient(180deg, #09050C 0%, rgba(9,5,12,0.34) 42%, rgba(9,5,12,0.9) 100%), linear-gradient(90deg, rgba(9,5,12,0.84) 0%, rgba(9,5,12,0.44) 50%, rgba(9,5,12,0.84) 100%)" }} />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-[400px] w-[700px] rounded-full opacity-30 blur-[120px]"
         style={{ background: "radial-gradient(circle, rgba(244,107,180,0.26), transparent 60%)" }} />
 
