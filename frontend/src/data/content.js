@@ -151,7 +151,7 @@ export const TIMELINE = [
   { label: "Today", note: "ViceHub in development", state: "done" },
   { label: "Join Waitlist", note: "Reserve your early access", state: "active" },
   { label: "GTA 6 Launch", note: "November 19, 2026", state: "upcoming" },
-  { label: "ViceHub Launch", note: "Companion goes live", state: "upcoming" },
+  { label: "Full ViceHub Launch", note: "Expanded platform arrives", state: "upcoming" },
   { label: "Community Features", note: "Play together", state: "upcoming" },
   { label: "Mobile App", note: "ViceHub everywhere", state: "upcoming" },
 ];

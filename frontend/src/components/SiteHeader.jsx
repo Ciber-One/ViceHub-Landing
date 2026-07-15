@@ -16,6 +16,9 @@ export const SiteHeader = () => {
           <Link to="/blog" data-testid="header-blog-link" className="text-sm text-tsec transition-colors hover:text-tprimary">
             Blog
           </Link>
+          <Link to="/map" data-testid="header-map-link" className="text-sm text-tsec transition-colors hover:text-tprimary">
+            Map
+          </Link>
           <button
             data-testid="header-waitlist-btn"
             onClick={() => navigate("/#waitlist")}

@@ -35,6 +35,11 @@ export const ProductPreview = () => {
       return;
     }
 
+    if (card.id === "interactive-map") {
+      navigate("/map");
+      return;
+    }
+
     if (card.id === "news-hub") {
       navigate("/blog");
       return;
@@ -43,7 +48,7 @@ export const ProductPreview = () => {
     setActive(card);
   };
 
-  const cardStatus = (id) => (id === "ai-companion" || id === "news-hub" ? "Live" : "Coming Soon");
+  const cardStatus = (id) => (id === "ai-companion" || id === "interactive-map" || id === "news-hub" ? "Live" : "Coming Soon");
 
   return (
     <section id="features" className="relative overflow-hidden py-24 md:py-32">
@@ -60,10 +65,10 @@ export const ProductPreview = () => {
         <Reveal>
           <Overline>The Platform</Overline>
           <h2 className="mt-4 font-heading text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight text-tprimary max-w-2xl">
-            Don't just read about it. Step inside.
+            Start with what is live today.
           </h2>
           <p className="mt-4 max-w-xl text-base md:text-lg text-tsec">
-            Tap any preview to explore a concept of what ViceHub will feel like.
+            Ask the AI companion, explore the interactive map, or preview the next tools joining ViceHub.
           </p>
         </Reveal>
 
@@ -74,7 +79,7 @@ export const ProductPreview = () => {
                 data-testid={`product-card-${card.id}`}
                 onClick={() => openCard(card)}
                 className={`group relative h-full w-full overflow-hidden rounded-2xl border p-6 text-left shadow-[0_18px_48px_-32px_rgba(0,0,0,0.84)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_62px_-26px_rgba(0,0,0,0.82)] ${
-                  card.id === "ai-companion"
+                  card.id === "ai-companion" || card.id === "interactive-map"
                     ? "border-sunset/25 bg-gradient-to-br from-sunset/[0.18] via-vice-card/[0.9] to-vice-card/[0.92]"
                     : "border-white/5 bg-vice-card/[0.86] hover:border-vicepink/25"
                 }`}
@@ -109,13 +114,26 @@ export const ProductPreview = () => {
         </div>
 
         <Reveal delay={0.1}>
-          <div className="mt-14 flex justify-center">
-            <button
-              data-testid="after-preview-join-waitlist-btn"
-              onClick={openWaitlist}
-              className="rounded-full bg-sunset px-7 py-3.5 text-sm font-semibold text-vice-bg hover:bg-coral transition-colors"
-            >
-              Join the Waitlist
+          <div className="mt-14 flex flex-col items-center gap-4 text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sunset">Available to explore now</p>
+            <div className="flex w-full max-w-xl flex-col gap-3 sm:flex-row sm:justify-center">
+              <button
+                data-testid="after-preview-ai-btn"
+                onClick={() => document.querySelector("#ai-companion")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-sunset px-7 py-3.5 text-sm font-semibold text-vice-bg transition-colors hover:bg-coral"
+              >
+                <Bot className="h-4 w-4" /> Use AI Companion
+              </button>
+              <button
+                data-testid="after-preview-map-btn"
+                onClick={() => navigate("/map")}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.035] px-7 py-3.5 text-sm font-semibold text-tprimary transition-colors hover:border-sunset/35 hover:bg-white/[0.06]"
+              >
+                <Map className="h-4 w-4 text-sunset" /> Open Live Map
+              </button>
+            </div>
+            <button data-testid="after-preview-join-waitlist-btn" onClick={openWaitlist} className="text-xs font-semibold text-tsec/65 transition-colors hover:text-sunset">
+              Join the waitlist for upcoming features
             </button>
           </div>
         </Reveal>

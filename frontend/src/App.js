@@ -10,9 +10,15 @@ import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import Contact from "@/pages/Contact";
 import Legal from "@/pages/Legal";
+import InteractiveMap from "@/pages/InteractiveMap";
 import AdminLogin from "@/pages/admin/AdminLogin";
 import AdminDashboard from "@/pages/admin/AdminDashboard";
 import PostEditor from "@/pages/admin/PostEditor";
+
+const shouldLoadAnalytics = () => {
+  if (typeof window === "undefined") return false;
+  return !["localhost", "127.0.0.1", "::1"].includes(window.location.hostname);
+};
 
 function App() {
 
@@ -24,6 +30,7 @@ function App() {
         <AuthProvider>
           <Routes>
             <Route path="/" element={<Landing />} />
+            <Route path="/map" element={<InteractiveMap />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/contact" element={<Contact />} />
@@ -36,7 +43,7 @@ function App() {
           </Routes>
         </AuthProvider>
       </BrowserRouter>
-       <Analytics />
+      {shouldLoadAnalytics() && <Analytics />}
       <Toaster position="top-center" theme="dark" />
     </div>
   );

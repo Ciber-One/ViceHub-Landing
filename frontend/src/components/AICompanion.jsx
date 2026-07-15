@@ -65,7 +65,7 @@ export const AICompanion = () => {
   const [messages, setMessages] = useState([
     {
       role: "ai",
-      text: "Hey - I'm your ViceHub companion. Ask me anything about your GTA 6 journey, and I'll show you how I'll help once we launch.",
+      text: "Hey - I'm your live ViceHub companion. Ask me anything about planning your GTA 6 journey and I'll help you turn it into a clear next step.",
     },
   ]);
   const [input, setInput] = useState("");
@@ -133,13 +133,13 @@ export const AICompanion = () => {
       <div className="pointer-events-none absolute bottom-10 left-[8%] -z-10 h-[320px] w-[420px] rounded-full bg-ocean/10 blur-[120px]" />
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12 lg:px-8">
         <Reveal>
-          <Overline>AI Companion</Overline>
+          <Overline>AI Companion - Live</Overline>
           <h2 className="mt-4 font-heading text-3xl font-medium tracking-tight text-tprimary md:text-4xl lg:text-5xl">
             A companion that actually gets your game.
           </h2>
           <p className="mt-4 max-w-md text-base text-tsec md:text-lg">
-            Ask a question and watch the experience respond. This interactive concept previews
-            the calm, useful guidance ViceHub is building for launch.
+            Ask a question and get a live response. ViceHub turns scattered ideas into calm,
+            useful guidance you can start exploring right now.
           </p>
 
           <div className="mt-7 grid max-w-lg gap-3 sm:grid-cols-3">
@@ -198,7 +198,7 @@ export const AICompanion = () => {
                   <div className="flex items-center gap-1.5 font-heading text-sm font-medium text-tprimary">
                     ViceHub AI <Sparkles className="h-3.5 w-3.5 text-sunset" />
                   </div>
-                  <div className="text-[11px] text-tsec/60">Companion preview - live when configured</div>
+                  <div className="text-[11px] text-tsec/60">Live AI companion</div>
                 </div>
               </div>
               <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.055] px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.18em] text-tsec backdrop-blur-md">

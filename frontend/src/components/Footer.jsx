@@ -17,6 +17,7 @@ const FOOTER_SECTIONS = [
     title: "Explore",
     links: [
       { label: "Home", to: "/" },
+      { label: "Live Map", to: "/map" },
       { label: "Journal", to: "/blog" },
       { label: "RSS Feed", href: `${API}/rss.xml`, external: true, icon: Rss },
     ],
@@ -154,7 +155,7 @@ export const Footer = () => {
 
         <div className="mt-14 flex flex-col gap-3 border-t border-white/5 pt-6 text-xs text-tsec/45 sm:flex-row sm:items-center sm:justify-between">
           <span>&copy; {year} ViceHub. All rights reserved.</span>
-          <span>Concept previews shown. Features become available after launch.</span>
+          <span>AI Companion and Interactive Map are live. More features are in development.</span>
         </div>
       </div>
     </footer>

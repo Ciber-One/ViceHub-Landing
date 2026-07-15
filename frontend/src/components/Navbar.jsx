@@ -6,8 +6,7 @@ import { useWaitlist } from "@/context/WaitlistContext";
 
 const LINKS = [
   { label: "Features", href: "#features" },
-  { label: "Roadmap", href: "#roadmap" },
-  { label: "FAQ", href: "#faq" },
+  { label: "AI Companion", href: "#ai-companion" },
 ];
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -64,6 +63,14 @@ export const Navbar = () => {
               </button>
             ))}
             <button
+              data-testid="nav-link-map"
+              onClick={() => navigate("/map")}
+              className="inline-flex items-center gap-2 text-sm text-tsec transition-colors duration-300 hover:text-tprimary"
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-sunset" />
+              Live Map
+            </button>
+            <button
               data-testid="nav-link-blog"
               onClick={() => navigate("/blog")}
               className="text-sm text-tsec hover:text-tprimary transition-colors duration-300"
@@ -97,7 +104,7 @@ export const Navbar = () => {
             <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-sunset/60 to-transparent" />
             <div className="mb-4 border-b border-white/10 pb-4">
               <p className="text-xs uppercase tracking-[0.26em] text-tmuted">Navigate</p>
-              <p className="mt-2 text-sm text-tsec">Choose a section or join the waitlist.</p>
+              <p className="mt-2 text-sm text-tsec">Open a live feature or explore the platform.</p>
             </div>
             <div className="flex flex-col gap-2">
               {LINKS.map((l) => (
@@ -110,6 +117,14 @@ export const Navbar = () => {
                   {l.label}
                 </button>
               ))}
+              <button
+                data-testid="mobile-nav-link-map"
+                onClick={() => { setMobileOpen(false); navigate("/map"); }}
+                className="flex items-center justify-between rounded-2xl border border-sunset/20 bg-sunset/[0.08] px-4 py-4 text-left text-base font-semibold text-tprimary transition-colors hover:border-sunset/35 hover:bg-sunset/[0.12]"
+              >
+                Live Map
+                <span className="text-[10px] uppercase tracking-[0.18em] text-sunset">Open</span>
+              </button>
               <button
                 data-testid="mobile-nav-link-blog"
                 onClick={() => { setMobileOpen(false); navigate("/blog"); }}

@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { Bot, ChevronDown, Map as MapIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Countdown } from "@/components/Countdown";
 import { HeroMockup } from "@/components/HeroMockup";
 import { useWaitlist } from "@/context/WaitlistContext";
 import { MEDIA } from "@/data/content";
 
-const PROMISE_POINTS = ["AI guidance", "Map-ready planning", "Progress memory"];
+const PROMISE_POINTS = ["Live AI guidance", "Interactive map", "Progress memory"];
 
 export const Hero = () => {
   const { openWaitlist } = useWaitlist();
@@ -80,32 +81,45 @@ export const Hero = () => {
             transition={{ duration: 0.8, delay: 0.15 }}
             className="mt-5 max-w-xl text-base leading-relaxed text-tsec sm:mt-6 md:text-lg"
           >
-            ViceHub brings AI guidance, planning tools, and progress tracking into one calm, premium companion for
-            the first day in Vice City and every session after.
+            Start with the live AI companion and interactive Leonida map today, then grow into one calm, premium
+            command center for every session in Vice City.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.25 }}
-            className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row"
+            className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap"
           >
-            <button
-              data-testid="hero-join-waitlist-btn"
-              onClick={openWaitlist}
-              className="group inline-flex items-center justify-center gap-2 rounded-full bg-sunset px-7 py-3.5 text-sm font-semibold text-vice-bg transition-colors duration-300 hover:bg-coral"
-            >
-              Join the Waitlist
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </button>
             <button
               data-testid="hero-ai-companion-btn"
               onClick={() => scrollTo("#ai-companion")}
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-sunset px-7 py-3.5 text-sm font-semibold text-vice-bg transition-colors duration-300 hover:bg-coral"
+            >
+              <Bot className="h-4 w-4" />
+              Ask AI Now
+            </button>
+            <Link
+              to="/map"
+              data-testid="hero-interactive-map-btn"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-vice-bg/[0.28] px-7 py-3.5 text-sm font-semibold text-tprimary backdrop-blur-md transition-colors duration-300 hover:bg-white/5"
             >
-              Try AI Companion
-            </button>
+              <MapIcon className="h-4 w-4 text-sunset" />
+              Explore Live Map
+            </Link>
           </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="mt-4 text-xs text-tsec/65"
+          >
+            Want every future tool?{" "}
+            <button data-testid="hero-join-waitlist-btn" onClick={openWaitlist} className="font-semibold text-sunset hover:text-coral">
+              Join the waitlist
+            </button>
+          </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -129,7 +143,7 @@ export const Hero = () => {
           >
             <Countdown />
             <p className="mt-3 text-xs text-tsec/50 max-w-md">
-              Concept previews shown. Features will become available after launch.
+              AI Companion and Interactive Map are live now. More ViceHub tools arrive as the platform grows.
             </p>
           </motion.div>
         </div>
