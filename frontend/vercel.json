@@ -5,6 +5,30 @@
     {
       "source": "/api/:path*",
       "destination": "https://vicehub-landing-production.up.railway.app/api/:path*"
+    },
+    {
+      "source": "/admin",
+      "destination": "/"
+    },
+    {
+      "source": "/admin/:path*",
+      "destination": "/"
+    },
+    {
+      "source": "/map",
+      "destination": "/"
+    },
+    {
+      "source": "/contact",
+      "destination": "/"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/"
+    },
+    {
+      "source": "/terms",
+      "destination": "/"
     }
   ]
 }
