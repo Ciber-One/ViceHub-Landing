@@ -51,6 +51,9 @@ export function useSeo({ title, description, image, url, type = "website", jsonL
     setNamed("twitter:image", image);
     setCanonical(url);
 
+    const prerenderScript = document.getElementById("ld-json-prerender");
+    if (prerenderScript) prerenderScript.remove();
+
     const id = "ld-json-article";
     let script = document.getElementById(id);
     if (jsonLdString) {

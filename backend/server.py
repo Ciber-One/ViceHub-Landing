@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, HTTPException, Depends, Header, UploadFile, File, Request
+from fastapi import FastAPI, APIRouter, HTTPException, Depends, Header, UploadFile, File, Request, BackgroundTasks
 from fastapi.responses import StreamingResponse, Response
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Optional, List
 from pydantic import BaseModel, EmailStr
 import asyncpg
+import httpx
 import resend
 from openai import OpenAI
 
@@ -27,6 +28,7 @@ DATABASE_URL = os.environ['DATABASE_URL']
 EMERGENT_LLM_KEY = os.environ.get('EMERGENT_LLM_KEY')
 GROQ_API_KEY = os.environ.get('GROQ_API_KEY')
 GROQ_MODEL = os.environ.get('GROQ_MODEL', 'llama-3.3-70b-versatile')
+FRONTEND_DEPLOY_HOOK_URL = os.environ.get('FRONTEND_DEPLOY_HOOK_URL')
 RESEND_API_KEY = os.environ.get('RESEND_API_KEY')
 print("RESEND_API_KEY exists:", bool(RESEND_API_KEY))
 print("RESEND_API_KEY length:", len(RESEND_API_KEY) if RESEND_API_KEY else 0)
@@ -454,6 +456,18 @@ def reading_time(content: str) -> int:
     return max(1, round(words / 200))
 
 
+async def trigger_frontend_prerender() -> None:
+    if not FRONTEND_DEPLOY_HOOK_URL:
+        return
+    try:
+        async with httpx.AsyncClient(timeout=10) as client:
+            response = await client.post(FRONTEND_DEPLOY_HOOK_URL)
+            response.raise_for_status()
+        logger.info("Frontend prerender deployment requested")
+    except Exception as exc:
+        logger.warning("Could not request frontend prerender deployment: %s", exc)
+
+
 def serialize_post(r, include_content=True) -> dict:
     d = dict(r)
     d["id"] = str(d["id"])
@@ -511,7 +525,7 @@ async def admin_get_post(post_id: str, admin=Depends(get_current_admin)):
 
 
 @api_router.post("/blog/posts")
-async def create_post(body: PostInput, admin=Depends(get_current_admin)):
+async def create_post(body: PostInput, background_tasks: BackgroundTasks, admin=Depends(get_current_admin)):
     async with pool.acquire() as conn:
         slug = await unique_slug(conn, body.slug or body.title)
         row = await conn.fetchrow(
@@ -520,13 +534,15 @@ async def create_post(body: PostInput, admin=Depends(get_current_admin)):
             slug, body.title, body.excerpt, body.content, body.cover_path, body.tags,
             body.meta_title, body.meta_description, body.author, body.category, body.published,
         )
+    if body.published:
+        background_tasks.add_task(trigger_frontend_prerender)
     return serialize_post(row)
 
 
 @api_router.put("/blog/posts/{post_id}")
-async def update_post(post_id: str, body: PostInput, admin=Depends(get_current_admin)):
+async def update_post(post_id: str, body: PostInput, background_tasks: BackgroundTasks, admin=Depends(get_current_admin)):
     async with pool.acquire() as conn:
-        existing = await conn.fetchrow("SELECT id FROM blog_posts WHERE id=$1", post_id)
+        existing = await conn.fetchrow("SELECT id, published FROM blog_posts WHERE id=$1", post_id)
         if not existing:
             raise HTTPException(status_code=404, detail="Post not found")
         slug = await unique_slug(conn, body.slug or body.title, exclude_id=post_id)
@@ -537,13 +553,18 @@ async def update_post(post_id: str, body: PostInput, admin=Depends(get_current_a
             post_id, slug, body.title, body.excerpt, body.content, body.cover_path, body.tags,
             body.meta_title, body.meta_description, body.author, body.category, body.published,
         )
+    if body.published or existing["published"]:
+        background_tasks.add_task(trigger_frontend_prerender)
     return serialize_post(row)
 
 
 @api_router.delete("/blog/posts/{post_id}")
-async def delete_post(post_id: str, admin=Depends(get_current_admin)):
+async def delete_post(post_id: str, background_tasks: BackgroundTasks, admin=Depends(get_current_admin)):
     async with pool.acquire() as conn:
+        existing = await conn.fetchrow("SELECT published FROM blog_posts WHERE id=$1", post_id)
         await conn.execute("DELETE FROM blog_posts WHERE id=$1", post_id)
+    if existing and existing["published"]:
+        background_tasks.add_task(trigger_frontend_prerender)
     return {"success": True}
 
 
@@ -579,11 +600,18 @@ async def upload_image(
 # ---------- Sitemap ----------
 @api_router.get("/sitemap.xml")
 async def sitemap(request: Request):
-    base = os.environ.get("PUBLIC_SITE_URL") or str(request.base_url).rstrip("/")
+    base = os.environ.get("PUBLIC_SITE_URL") or "https://www.vicehub.live"
     base = base.replace("http://", "https://")
     async with pool.acquire() as conn:
         rows = await conn.fetch("SELECT slug, updated_at FROM blog_posts WHERE published=true ORDER BY updated_at DESC")
-    urls = [(f"{base}/", None), (f"{base}/blog", None)]
+    urls = [
+        (f"{base}/", None),
+        (f"{base}/blog", None),
+        (f"{base}/map", None),
+        (f"{base}/contact", None),
+        (f"{base}/privacy", None),
+        (f"{base}/terms", None),
+    ]
     for r in rows:
         urls.append((f"{base}/blog/{r['slug']}", r["updated_at"].date().isoformat()))
     items = ""
@@ -595,7 +623,7 @@ async def sitemap(request: Request):
 
 @api_router.get("/rss.xml")
 async def rss(request: Request):
-    base = os.environ.get("PUBLIC_SITE_URL") or str(request.base_url).rstrip("/")
+    base = os.environ.get("PUBLIC_SITE_URL") or "https://www.vicehub.live"
     base = base.replace("http://", "https://")
     async with pool.acquire() as conn:
         rows = await conn.fetch("SELECT slug, title, excerpt, category, created_at FROM blog_posts WHERE published=true ORDER BY created_at DESC LIMIT 50")

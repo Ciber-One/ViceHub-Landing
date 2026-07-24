@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin
 
-Sitemap: https://vicehub-landing-production.up.railway.app/api/sitemap.xml
+Sitemap: https://www.vicehub.live/sitemap.xml

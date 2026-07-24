@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ChevronLeft,
+  BookOpen,
   Crosshair,
   Filter,
   LocateFixed,
@@ -389,6 +390,13 @@ export default function InteractiveMap() {
               <Logo withText />
             </div>
             <div className="hidden items-center gap-3 md:flex">
+              <Link
+                to="/blog"
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-tsec transition-colors hover:border-sunset/40 hover:text-tprimary"
+              >
+                <BookOpen className="h-4 w-4" />
+                Journal
+              </Link>
               <span className="rounded-full border border-sunset/25 bg-sunset/[0.12] px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-sunset">
                 Live Interactive Map
               </span>

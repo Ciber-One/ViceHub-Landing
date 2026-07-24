@@ -11,19 +11,39 @@ const fmtDate = (iso) =>
   new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
 
 const slugId = (value) => value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+const SITE_URL = "https://www.vicehub.live";
 
 export default function Blog() {
   const [posts, setPosts] = useState(null);
   const [category, setCategory] = useState("All");
   const [query, setQuery] = useState("");
-  const siteUrl = `${window.location.origin}/blog`;
+  const siteUrl = `${SITE_URL}/blog`;
 
   useSeo({
-    title: "ViceHub Journal - GTA 6 News, Guides & Concepts",
+    title: "ViceHub Journal | GTA 6 News, Guides and Map Analysis",
     description:
-      "The ViceHub Journal: GTA 6 release date, map, characters, vehicles and companion concepts as we build toward launch.",
+      "Read GTA 6 news, guides, map analysis, character coverage, and ViceHub product updates in the ViceHub Journal.",
     url: siteUrl,
-    image: `${window.location.origin}/og-default.jpg`,
+    image: `${SITE_URL}/vicehub.png`,
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Blog",
+          name: "ViceHub Journal",
+          description: "GTA 6 news, guides, map analysis, and ViceHub product updates.",
+          url: siteUrl,
+          publisher: { "@type": "Organization", name: "ViceHub", url: SITE_URL },
+        },
+        {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "ViceHub", item: `${SITE_URL}/` },
+            { "@type": "ListItem", position: 2, name: "Journal", item: siteUrl },
+          ],
+        },
+      ],
+    },
   });
 
   useEffect(() => {

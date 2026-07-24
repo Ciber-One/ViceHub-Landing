@@ -122,9 +122,14 @@ export default function PostEditor() {
           </div>
 
           {tab === "write" ? (
-            <textarea data-testid="post-content-input" className={inputCls + " min-h-[460px] font-mono leading-relaxed"} value={form.content}
-              onChange={(e) => set("content", e.target.value)}
-              placeholder={"Write in Markdown...\n\n## A heading\n\nSome **bold** text, a [link](https://example.com), and a list:\n\n- point one\n- point two"} />
+            <Field
+              label="Article"
+              hint="Add trustworthy source links in Markdown. They will also appear in the article's Sources and references section."
+            >
+              <textarea data-testid="post-content-input" className={inputCls + " min-h-[460px] font-mono leading-relaxed"} value={form.content}
+                onChange={(e) => set("content", e.target.value)}
+                placeholder={"Write in Markdown...\n\n## A heading\n\nSome **bold** text, a [source](https://example.com), and a list:\n\n- point one\n- point two"} />
+            </Field>
           ) : (
             <div className="prose-vice rounded-lg border border-white/10 bg-vice-bg2 p-6 min-h-[460px]">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>{form.content || "_Nothing to preview yet._"}</ReactMarkdown>
